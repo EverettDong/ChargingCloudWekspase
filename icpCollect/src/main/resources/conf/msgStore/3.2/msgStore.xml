@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocols>
+<protocol type ="3.2" dataCode="0x78" className="MonRechargeRecordDto" tableName="mon_recharge_record">
+		<item name="用户ID" type="int" length="2"  fieldName ="operatorId" fieldType="String"/>
+		<item name="指令序号" type="int" length="2" fieldName="serialNo" fieldType="String"/>
+		<item name="充电枪位置充电类型" type="int" length="1" fieldName="rechargeType" fieldType="String"/> 	
+		<item name="卡号" type="ascII" length="16" fieldName="cardId" fieldType="String"/>
+		
+		<item name="充电机编码" type="hex" length="8" fieldName="chargerCode" fieldType="String"/>
+		<item name="车辆VIN" type="ascII" length="17" fieldName="vin" fieldType="String"/>
+		<item name="车牌号" type="carstr" length="8" fieldName="plateNumber" fieldType="String"/>
+		<item name="开始充电SOC" type="int" length="1" fieldName="startSoc" fieldType="String"/>
+		<item name="结束充电SOC" type="int" length="1" fieldName="endSoc" fieldType="String"/>
+		<item name="本次累计充电量" unit="安时" type="int" length="2" fieldName="ah" fieldType="String"/>
+		<item name="本次累计充电能" type="kwhint" length="2" fieldName="kwh" fieldType="String"/>
+		<item name="充电时间长度" unit="秒" type="int" length="4" fieldName="chargeTime" fieldType="String"/>
+		<enumitem name="充电满策略" length="1" fieldName="strategy" fieldType="String">
+			<enumvalue>
+				<enum desc="自定义时间充电">1</enum>
+				<enum desc="自定义电度数充电">2</enum>
+				<enum desc="自定义金额">3</enum>
+				<enum desc="自然充电">4</enum>				
+			</enumvalue>
+		</enumitem>			
+		<item name="充电满策略参数" length="2" type="int" fieldName="strategyParam" fieldType="String"/>
+		<enumitem name="是否正常结束" length="1" fieldName="normalEnd" fieldType="String">
+			<enumvalue>
+				<enum desc="正常结束">1</enum>
+				<enum desc="异常结束">2</enum>
+				<enum desc="故障停机(紧急停机按钮停机，充电机停止)">3</enum>
+                <enum desc="故障停机(CC1故障，连接确认故障)">4</enum>
+				<enum desc="故障停机(BMS故障，充电机停止)">5</enum>
+				<enum desc="故障停机(BMS错误，充电机停止)">6</enum>
+				<enum desc="故障停机(单体电池电压过高，充电机停止)">7</enum>
+				<enum desc="故障停机(单体电池温度过高，充电机停止)">8</enum>
+				<enum desc="故障停机(输入过压，充电机停止)">9</enum>
+				<enum desc="故障停机(输入欠压，充电机停止)">10</enum>
+				<enum desc="故障停机(输入缺相，充电机停止)">11</enum>
+				<enum desc="故障停机(输出短路，充电机停止)">12</enum>
+				<enum desc="故障停机(内部故障（充电机自检故障），充电机停止)">13</enum>
+				<enum desc="故障停机(输出过压，充电机停止)">14</enum>
+				<enum desc="故障停机(直流输出断路，充电机停止)">15</enum>
+				<enum desc="系统故障停机">16</enum>
+				<enum desc="充电系统故障停机">17</enum>
+				<enum desc="充电模块故障停机">18</enum>
+				<enum desc="电池故障停机">19</enum>
+				<enum desc="远程停机">80</enum>
+				<enum desc="刷卡停机">81</enum>
+				<enum desc="订单号验证停机">82</enum>
+			</enumvalue>
+		</enumitem>			
+		<item type="time" name="开始日期时间" length="8" fieldName="startTime" fieldType="String"/>
+		<item type="time" name="结束日期时间" length="8" fieldName="endTime" fieldType="String"/>
+		<item type="time" name="交易开始日期时间" length="8" fieldName="traceTime" fieldType="String"/>
+		<item name="开始电表度数" type="kwhint" length="4" fieldName="startKwh" fieldType="String"/>
+		<item name="结束电表度数" type="kwhint" length="4" fieldName="endKwh" fieldType="String"/>
+
+	
+	</protocol>
+
+	
+
+	
+	
+</protocols>

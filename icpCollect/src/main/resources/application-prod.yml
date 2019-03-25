@@ -1,0 +1,42 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+    metadata-map:
+      cluster: icp
+
+spring:  
+  sleuth:
+    enabled: true
+    sampler:
+      percentage: 0.1
+ribbon:
+  eager-load:
+    enabled: true
+    clients:
+      - icp-billing
+      - icp-crm
+      - icp-resource
+icp-billing:
+  ribbon:
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 2
+    OkToRetryOnAllOperations: true
+    ServerListRefreshInterval: 2000
+    ConnectTimeout: 3000
+    ReadTimeout: 3000
+icp-crm:
+  ribbon:
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 2
+    OkToRetryOnAllOperations: true
+    ServerListRefreshInterval: 2000
+    ConnectTimeout: 3000
+    ReadTimeout: 3000
+icp-resource:
+  ribbon:
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 2
+    OkToRetryOnAllOperations: true
+    ServerListRefreshInterval: 2000
+    ConnectTimeout: 3000
+    ReadTimeout: 3000 

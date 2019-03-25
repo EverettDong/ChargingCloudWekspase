@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.icp.collect.dao.MonRehargeModuleParamDao">
+
+	<resultMap type="MonRehargeModuleParamDto" id="MonRehargeModuleParamDtoMap">
+		<result property="deviceNo" column="device_no" />
+		<result property="operatorId" column="operator_id" />
+		<result property="serialNo" column="serial_no" />
+		<result property="position" column="position" />
+		<result property="rechargeType" column="recharge_type" />
+		<result property="maxOutputVol" column="max_output_vol" />
+		<result property="minOutputVol" column="min_output_vol" />
+		<result property="maxOutputCur" column="max_output_cur" />
+		<result property="maxChargeVol" column="max_charge_vol" />
+		<result property="maxChargeTem" column="max_charge_tem" />
+		<result property="ifCharging" column="if_charging" />
+		<result property="totalChargeVol" column="total_charge_vol" />
+		<result property="totalChargeCur" column="total_charge_cur" />
+		<result property="maxSingleVol" column="max_single_vol" />
+		<result property="maxBatteryTem" column="max_battery_tem" />
+		<result property="ver" column="ver" />
+		<result property="batteryBoxAmount" column="battery_box_amount" />
+		<result property="totalserNum" column="totalser_num" />
+		<result property="totalparNum" column="totalpar_num" />
+		<result property="battrateCap" column="battrate_cap" />
+		<result property="inDate" column="in_date" />
+		</resultMap>
+	<insert id="addDto" parameterType="MonOverallStateDto">
+	insert into mon_reharge_module_param 
+	(device_no,operator_id,serial_no,position,recharge_type,max_output_vol,min_output_vol,
+	max_output_cur,max_charge_vol,max_charge_tem,if_charging,total_charge_vol,total_charge_cur,
+	max_single_vol,max_battery_tem,ver,battery_box_amount,totalser_num,totalpar_num,battrate_cap,
+	in_date)
+	values
+	(#{deviceNo},#{operatorId},#{serialNo},#{position},#{rechargeType},#{maxOutputVol},
+	#{minOutputVol},#{maxOutputCur},#{maxChargeVol},#{maxChargeTem},#{ifCharging},#{totalChargeVol},
+	#{totalChargeCur},#{maxSingleVol},#{maxBatteryTem},#{ver},#{batteryBoxAmount},#{totalserNum},
+	#{totalparNum},#{battrateCap},#{inDate}
+	)
+	</insert>
+	
+	<update id="updateDto" parameterType="MonOverallStateDto">
+	update mon_reharge_module_param 
+	<trim prefix="set" suffixOverrides=",">
+			<if test=" operatorId!=null and  operatorId!= ''">  operator_id= #{operatorId},</if>
+			<if test="  serialNo!=null and   serialNo!= ''"> serial_no= #{serialNo},</if>
+	
+			<if test=" rechargeType!=null and  rechargeType!= ''"> recharge_type= #{rechargeType},</if>
+				<if test=" maxOutputVol!=null and  maxOutputVol!= ''">  max_output_vol= #{maxOutputVol},</if>
+			<if test="  minOutputVol!=null and   minOutputVol!= ''"> min_output_vol= #{minOutputVol},</if>
+				<if test="maxOutputCur!=null and  maxOutputCur!= ''">  max_output_cur= #{maxOutputCur},</if>
+			<if test=" maxChargeTem!=null and  maxChargeTem!= ''">  max_charge_tem= #{maxChargeTem},</if>
+				<if test="maxChargeVol!=null and  maxChargeVol!= ''"> max_charge_vol= #{maxChargeVol},</if>
+			<if test=" ifCharging!=null and ifCharging != ''"> if_charging = #{ifCharging},</if>
+				<if test="totalChargeVol!=null and  totalChargeVol!= ''">  total_charge_vol= #{totalChargeVol},</if>
+			<if test="  totalChargeCur!=null and  totalChargeCur!= ''"> total_charge_cur= #{totalChargeCur},</if>
+				<if test="maxSingleVol!=null and maxSingleVol!= ''">  max_single_vol= #{maxSingleVol},</if>
+			<if test="  maxBatteryTem!=null and  maxBatteryTem!= ''">  max_battery_tem= #{maxBatteryTem},</if>
+				<if test=" ver!=null and   ver!= ''">  ver= #{ver},</if>
+			<if test="  batteryBoxAmount!=null and   batteryBoxAmount!= ''">  battery_box_amount= #{batteryBoxAmount},</if>
+				<if test=" totalserNum!=null and   totalserNum!= ''"> totalser_num = #{totalserNum},</if>
+			<if test="  totalparNum!=null and  totalparNum!= ''">  =totalpar_num #{totalparNum},</if>
+			<if test=" battrateCap!=null and  battrateCap!= ''">  battrate_cap= #{battrateCap},</if>
+			in_date = sysdate()
+		</trim>
+
+		where device_no=#{deviceNo} and postion=#{position}
+	</update>
+	
+	
+	
+	<select id="getByDeviceAndPos" parameterType="String" resultMap="MonRehargeModuleParamDtoMap">
+	select * from mon_reharge_module_param 
+		<trim prefix="where" suffixOverrides="and">
+		      
+			<if test="deviceNo !=null and deviceNo != ''">
+				device_no = #{deviceNo} and
+			</if>
+			<if test="position !=null and position != ''">
+				position = #{position} 
+			</if>
+			</trim>
+	</select>
+	</mapper>

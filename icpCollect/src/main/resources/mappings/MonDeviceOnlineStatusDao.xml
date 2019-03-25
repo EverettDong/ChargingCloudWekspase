@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.icp.collect.dao.MonDeviceOnlineStatusDao">
+
+	<resultMap type="com.cpit.icp.dto.collect.MonDeviceOnlineStatusDto" id="MonDeviceOnlineStatusDtoMap1">
+		<result property="deviceNo" column="device_no" />
+		<result property="updateTime" column="update_time" />
+		<result property="faultSourceMsg" column="fault_source_msg" />
+		<result property="workState" column="work_state" />
+		<result property="onlineState" column="online_state" />
+
+	</resultMap>
+	
+	
+	<insert id="addDto" parameterType ="MonDeviceOnlineStatusDto">
+	insert into mon_device_online_status(device_no,update_time,fault_source_msg,work_state,online_state)
+	values 
+	(#{deviceNo},#{updateTime},#{faultSourceMsg},#{workState},#{onlineState})
+	</insert>
+	
+	<update id="updateWorkStatus"  parameterType ="MonDeviceOnlineStatusDto">
+	update mon_device_online_status
+		<trim prefix="set" suffixOverrides=",">
+			<if test="workState !=null and workState != ''">work_state = #{workState},</if>
+			<if test="faultSourceMsg !=null and faultSourceMsg != ''">fault_source_msg = #{faultSourceMsg},</if>
+			<if test="updateTime !=null and updateTime != ''">update_time = #{updateTime},</if>
+			
+		</trim>
+
+		where device_no=#{deviceNo}
+	</update>
+	
+		<select id="getByDeviceNo" parameterType="String" resultMap="MonDeviceOnlineStatusDtoMap1">
+		select * from mon_device_online_status
+		<where>
+			<if test="deviceNo != '' and deviceNo != null">
+				device_no = #{deviceNo}
+			</if>
+		</where>
+	</select>
+	</mapper>

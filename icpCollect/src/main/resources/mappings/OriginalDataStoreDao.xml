@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.icp.collect.dao.OriginalDataStoreDao">
+
+<resultMap type="OriginalDataStoreDto" id="OriginalDataStoreDtoMap">
+		
+		<result property="deviceNo" column="device_no" />
+		<result property="messCode" column="mess_code" />
+		<result property="messType" column="mess_type" />
+		<result property="messData" column="mess_data" />
+		<result property="inTime" column="in_time" />
+		<result property="msgFormatTR" column="msg_formatTest_result" />
+		<result property="msgFormatTC" column="msg_formatTest_content" />
+		<result property="parsedData" column="parsed_data" />
+		<result property="inDay" column="in_day" />
+	</resultMap>
+
+
+
+<insert id="addDto" parameterType="OriginalDataStoreDto">
+insert into original_data_store (device_no,mess_code,mess_type,mess_data,in_time,msg_formatTest_result,msg_formatTest_content,parsed_data,in_day)
+values (#{deviceNo},#{messCode},#{messType},#{messData},#{inTime},#{msgFormatTR},#{msgFormatTC},#{parsedData},#{inDay})
+</insert>
+
+<select id ="countDto"  parameterType="String" resultType ="int">
+select count(*) from original_data_store where in_time &gt; #{startTime} and in_time &lt;= #{endTime}
+</select>
+
+<select id ="getBetweenTime"  parameterType="String" resultMap ="OriginalDataStoreDtoMap">
+select * from original_data_store where in_time &gt; #{startTime} and in_time &lt;= #{endTime}
+</select>
+</mapper>

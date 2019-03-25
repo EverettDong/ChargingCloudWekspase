@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.icp.pregateway.message.dao.MessageDao">
+
+
+     <insert id="addMessage" parameterType="com.cpit.icp.pregateway.message.dto.MessageDto" >
+		INSERT INTO mon_message(
+		month,
+		version,
+		type,
+		command,
+		device_no,
+		device_ip,
+		device_port,
+		message,
+		insertdate
+		)
+		values(
+		#{month},
+		#{version},
+		#{type},
+		#{command},
+		#{device_no},
+		#{device_ip},
+		#{device_port},
+		#{message},
+		now()
+		)
+	</insert>
+
+
+	<select id="getAllmessage" 
+		resultType="com.cpit.icp.pregateway.message.dto.MessageDto">
+		SELECT
+		ip,
+		port,
+		case type
+		WHEN '1' THEN '上行'
+		WHEN '2' THEN '下行'
+		end as type,
+		insertdate,
+		message,
+		command
+		FROM cj_message
+	
+		order by insertdate desc
+	</select>
+	
+	<insert id="addException" parameterType="com.cpit.icp.pregateway.message.dto.ExceptionDto" >
+		INSERT INTO mon_message_exception(
+		month,
+		type,
+		device_ip,
+		device_port,
+		message,
+		insertdate,
+		info
+		)
+		values(
+		#{month},
+		#{type},
+		#{device_ip},
+		#{device_port},
+		#{message},
+		now(),
+		#{info}
+		)
+	</insert>
+	
+    <insert id="insertDeviceOfflineMessage" parameterType="com.cpit.icp.pregateway.message.dto.DeviceOfflineMessage" >
+		INSERT INTO mon_device_offline_his(
+		month,
+		version,
+		type,
+		device_no,
+		device_ip,
+		device_port,
+		message,
+		p_time,
+		pregate_ip,
+		state
+		)
+		values(
+		#{month},
+		#{version},
+		#{type},
+		#{device_no},
+		#{device_ip},
+		#{device_port},
+		#{message},
+		#{p_time},
+		#{pregate_ip},
+		#{state}
+		)
+	</insert>
+	
+	<select id="selectByCon" parameterType="String"
+		resultType="com.cpit.icp.pregateway.message.dto.DeviceOfflineMessage">
+		SELECT id,month,version,type,device_no,device_ip,
+		device_port,message,p_time,pregate_ip,state
+		FROM mon_device_offline_his	
+		where state = 0 and pregate_ip = #{pregate_ip}
+		order by p_time desc
+	</select>
+	
+	<update id="updateDeviceOfflineMessageById" parameterType="Integer" >
+
+    update mon_device_offline_his
+    set   state = 1,
+      upload_time = now()
+    where id = #{id}
+  </update>
+     
+
+</mapper>

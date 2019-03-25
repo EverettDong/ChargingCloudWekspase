@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<msgProcessors>
+	<msgProcessor id ="registerMsgProcessImp" code="0x1B" 
+		name="com.cpit.icp.collect.msgProcess.RegisterMsgProImp">
+	</msgProcessor>
+
+
+
+	<msgProcessor id ="RequestMsgProcessImp" code="0xF5,0xF3,0x7E,0x3D,0x70,0x71,0x72,0x75,0x79,0x7D,0x7B,0x74,0x54"
+		name="com.cpit.icp.collect.msgProcess.RequestMsgProImp"> 
+		<sendResponseData  send="0x2D" response="0x3D"/>
+		<sendResponseData  send="0x6E" response="0x7E"/>
+		<sendResponseData  send="0x6d" response="0x70"/>
+		<sendResponseData  send="0x61" response="0x71"/>
+		<sendResponseData  send="0x62" response="0x72"/>
+		<sendResponseData  send="0x65" response="0x75"/>
+		<sendResponseData  send="0x68" response="0x7D"/>
+		<sendResponseData  send="0x68" response="0x79"/>
+		<sendResponseData  send="0x6B" response="0x7B"/>
+		<sendResponseData  send="0x64" response="0x74"/>
+		<sendResponseData  send="0xE3" response="0xF3"/>
+		<sendResponseData  send="0xE5" response="0xF5"/>
+			   		<sendResponseData  send="0x44" response="0x54"/>
+	
+	</msgProcessor>
+
+	<msgProcessor id ="ReportMsgProcessImp" code="0xB4,0xB5,0x94,0x91,0xF4,0x16,0x13,0x1D,0x12,0x57,0x55,0x1C,0x51,0x52,0x59,0x50,0x15,0x1E,0x1F,0xF0,0x31,0x3A,0x39,0x3C,0x35,0x36,0x3B,0xF1,0xF2,0xD1,0xD2,0xD3,0x56,0x53,0xF0,0x7A,0x93,0x96,0x97,0x98,0x1A,0x11,0xB3"
+		name="com.cpit.icp.collect.msgProcess.ReportMsgProImp"> 
+	   		<sendResponseData  send="0x0C" response="0x1C"/>
+	   	 	<sendResponseData  send="0x45" response="0x55"/>
+	   		<sendResponseData  send="0x47" response="0x57"/>
+	   		<sendResponseData  send="0x02" response="0x12"/>
+	   		<sendResponseData  send="0x0D" response="0x1D"/>
+	   		<sendResponseData  send="0x03" response="0x13"/>
+	   		<sendResponseData  send="0x06" response="0x16"/>
+	   		<sendResponseData  send="0xE4" response="0xF4"/>
+	   		<sendResponseData  send="0x81" response="0x91"/>
+	   		<sendResponseData  send="0x84" response="0x94"/>
+
+	   		<sendResponseData  send="0x4B" response="0x51"/>
+			<sendResponseData  send="0x42" response="0x52"/>
+			<sendResponseData  send="0x49" response="0x59"/>
+			<sendResponseData  send="0x40" response="0x50"/>
+			<sendResponseData  send="0x05" response="0x15"/>
+			<sendResponseData  send="0x07" response="0x1E"/>
+			<sendResponseData  send="0x08" response="0x1F"/>
+			<sendResponseData  send="0xE0" response="0xF0"/>
+			<sendResponseData  send="0x21" response="0x31"/>
+			<sendResponseData  send="0x22" response="0x3A"/>
+			<sendResponseData  send="0x23" response="0x39"/>
+			<sendResponseData  send="0x24" response="0x3C"/>
+			<sendResponseData  send="0x25" response="0x35"/>
+			<sendResponseData  send="0x26" response="0x36"/>
+			<sendResponseData  send="0x2B" response="0x3B"/>
+			<sendResponseData  send="0xE1" response="0xF1"/>
+			<sendResponseData  send="0xE2" response="0xF2"/>
+			<sendResponseData  send="0xC1" response="0xD1"/>
+			<sendResponseData  send="0xC2" response="0xD2"/>
+			<sendResponseData  send="0xC3" response="0xD3"/>
+			<sendResponseData  send="0x4A" response="0x56"/>
+			<sendResponseData  send="0x43" response="0x53"/>
+			<sendResponseData  send="0xE0" response="0xF0"/>
+			<sendResponseData  send="0x6C" response="0x7A"/>
+			<sendResponseData  send="0x80" response="0x93"/>
+			<sendResponseData  send="0x86" response="0x96"/>
+			<sendResponseData  send="0x87" response="0x97"/>
+			<sendResponseData  send="0x88" response="0x98"/>
+			<sendResponseData  send="0x0A" response="0x1A"/>
+			<sendResponseData  send="0xA0" response="0xB0"/>
+			<sendResponseData  send="0xA1" response="0xB1"/>
+			<sendResponseData  send="0xA2" response="0xB2"/>
+			<sendResponseData  send="0xA3" response="0xB3"/>
+			<sendResponseData send="0xFF" response="0x11"/>
+	</msgProcessor>
+
+</msgProcessors>
+

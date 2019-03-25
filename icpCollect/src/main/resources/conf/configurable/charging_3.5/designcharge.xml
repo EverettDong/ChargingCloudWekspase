@@ -1,0 +1,1869 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 2017-01-04 xml结构说明： 用途：充电桩所有报文编解码 -->
+<protocolset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<!-- add by zsj begin -->
+	<protocol id="0x11" name="智能终端状态上报" direction="ts">
+		<item name="智能终端设备编码" type="hex" length="8" />
+		<enumitem name="工作状态" length="1">
+			<enumvalue>
+				<enum desc="管理状态">1</enum>
+				<enum desc="服务状态">2</enum>
+				<enum desc="故障状态">3</enum>
+				<enum desc="初始化状态">9</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="系统故障状态" type="SystemFault" length="4" />
+		<enumitem name="下游设备1" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="环境板未配置">1</enum>
+				<enum desc="环境板未检测到">2</enum>
+				<enum desc="环境板正常工作">3</enum>
+				<enum desc="环境板正常待机">4</enum>
+				<enum desc="环境板故障">5</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="下游设备2" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="POS机未配置">1</enum>
+				<enum desc="POS机未检测到">2</enum>
+				<enum desc="POS机正常工作">3</enum>
+				<enum desc="POS机正常待机">4</enum>
+				<enum desc="POS机故障">5</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="下游设备3" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="电表未配置">1</enum>
+				<enum desc="电表未检测到">2</enum>
+				<enum desc="电表正常工作">3</enum>
+				<enum desc="电表正常待机">4</enum>
+				<enum desc="电表故障">5</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="下游设备4" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="UPS未配置">1</enum>
+				<enum desc="UPS未检测到">2</enum>
+				<enum desc="UPS正常工作">3</enum>
+				<enum desc="UPS正常待机">4</enum>
+				<enum desc="UPS故障">5</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="下游设备5" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="充电系统未配置">1</enum>
+				<enum desc="充电系统未检测到">2</enum>
+				<enum desc="充电系统正常工作">3</enum>
+				<enum desc="充电系统正常待机">4</enum>
+				<enum desc="充电系统故障">5</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="下游设备6" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="显示屏幕未配置">1</enum>
+				<enum desc="显示屏幕未检测到">2</enum>
+				<enum desc="显示屏幕正常工作">3</enum>
+				<enum desc="显示屏幕正常待机">4</enum>
+				<enum desc="显示屏幕故障">5</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="下游设备7" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="未配置">1</enum>
+				<enum desc="未检测到">2</enum>
+				<enum desc="正常工作">3</enum>
+				<enum desc="正常待机">4</enum>
+				<enum desc="故障">5</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="下游设备8" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="未配置">1</enum>
+				<enum desc="未检测到">2</enum>
+				<enum desc="正常工作">3</enum>
+				<enum desc="正常待机">4</enum>
+				<enum desc="故障">5</enum>
+			</enumvalue>
+		</enumitem>
+	</protocol>
+	<protocol id="0x13" name="充电设备远程控制参数查询应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<enumitem name="参数类型" length="1">
+			<enumvalue>
+				<enum desc="输出功率">3</enum>
+				<enum desc="单体最高允许电压">4</enum>
+				<enum desc="单体最高允许温度">5</enum>
+				<enum desc="语音提示功能启停">6</enum>
+				<enum desc="充电设备服务启停">7</enum>
+				<enum desc="充电接口温度监控停机保护值">8</enum>
+				<enum desc="充电设备电价执行方式">9</enum>
+				<enum desc="结算界面是否显示结算电费">10</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="充电模块个数" type="int" length="1" isCursor="true" />
+		<array size="$充电模块个数$" cur="i">
+			<item name="充电模块位置#i#编号" type="byte" length="1" />
+			<item name="充电模块#i#控制参数" type="int" length="2" />
+		</array>
+	</protocol>
+	<protocol id="0x15" name="充电设备远程控制应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<enumitem name="参数类型" length="1">
+			<enumvalue>
+				<enum desc="设置充电机启停">2</enum>
+				<enum desc="设置输出功率">3</enum>
+				<enum desc="设置单体最高允许电压">4</enum>
+				<enum desc="设置单体最高允许温度">5</enum>
+				<enum desc="设置语音提示功能启停">6</enum>
+				<enum desc="设置充电设备服务启停">7</enum>
+				<enum desc="设置充电接口温度监控停机保护值">8</enum>
+				<enum desc="设置充电设备电价执行方式">9</enum>
+				<enum desc="设置结算界面是否显示结算电费">10</enum>
+				<enum desc="设置智能终端主动与中心平台断开连接，并按照设置的恢复连接时间重新连接中心平台">11</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="参数个数" type="int" length="1" isCursor="true" />
+		<array size="$参数个数$" cur="i">
+			<item name="充电模块位置#i#编号" type="byte" length="1" />
+			<item name="充电模块#i#控制参数" type="int" length="2" />
+		</array>
+	</protocol>
+	<protocol id="0x16" name="放电模块当前参数查询应答/上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电枪数量" type="int" length="1" isCursor="true" />
+		<array size="$充电枪数量$" cur="i">
+			<item name="充电枪位置#i#最低允许放电电压" type="Vint" length="2" />
+			<item name="充电枪位置#i#最高允许放电电流" type="Aint" length="2" />
+			<item name="充电枪位置#i#最大允许放电容量" type="int" length="2" />
+			<item name="充电枪位置#i#最低允许放电总电压" type="Vint" length="2" />
+			<item name="位置#i#最高允许放电温度" type="Tint" length="2" />
+			<item name="位置#i#是否允许充电代码" type="byte" length="1" />
+			<item name="位置#i#放电需求总电压" type="Vint" length="2" />
+			<item name="位置#i#放电需求电流" type="Aint" length="2" />
+			<item name="位置#i#最低允许单体电压" type="sVint2" length="2" />
+			<item name="位置#i#最高允许蓄电池温度" type="Tint" length="2" />
+			<item name="位置#i#通信协议版本号" type="version" length="3" />
+			<item name="位置#i#BMS软件版本号" type="hex" length="8" />
+			<item name="位置#i#电池箱数" type="byte" length="1" />
+			<item name="位置#i#电池组总串联数" type="byte" length="1" />
+			<item name="位置#i#电池组总并联数" type="byte" length="1" />
+			<item name="位置#i#电池组总额定容量" type="AHint" length="2" />
+		</array>
+	</protocol>
+	<protocol id="0x1E" name="充电模块当前参数查询应答/上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电枪数量" type="int" length="1" isCursor="true" />
+		<array size="$充电枪数量$" cur="i">
+			<item name="充电枪位置#i#充/放电类型" type="cdqtype" length="1" />
+			<item name="充电枪位置#i#最高允许输出电压" type="Vint" length="2" />
+			<item name="充电枪位置#i#最低允许输出电压" type="Vint" length="2" />
+			<item name="充电枪位置#i#最大允许输出电流" type="Aint" length="2" />
+			<item name="充电枪位置#i#最小允许输出电流" type="Aint" length="2" />
+			<item name="充电枪位置#i#最高允许充电电流" type="Aint" length="2" />
+			<item name="位置#i#最高允许充电总电压" type="Vint" length="2" />
+			<item name="位置#i#是否允许充电代码" type="byte" length="1" />
+			<item name="位置#i#充电需求总电压" type="Vint" length="2" />
+			<item name="位置#i#放电需求电流" type="Aint" length="2" />
+			<item name="位置#i#最高允许单体电压" type="sVint2" length="2" />
+			<item name="位置#i#最高允许蓄电池温度" type="Tint" length="2" />
+			<item name="位置#i#通信协议版本号" type="version" length="3" />
+			<item name="位置#i#BMS软件版本号" type="hex" length="8" />
+			<item name="位置#i#电池箱数" type="byte" length="1" />
+			<item name="位置#i#电池组总串联数" type="byte" length="1" />
+			<item name="位置#i#电池组总并联数" type="byte" length="1" />
+			<item name="位置#i#电池组总额定容量" type="AHint" length="2" />
+			<item name="位置#i#电池组充电次数" type="int" length="3" />
+		</array>
+	</protocol>
+	<protocol id="0x1F" name="充/放电电池模块当前参数查询应答/上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电枪数量" type="int" length="1" isCursor="true" />
+		<array size="$充电枪数量$" cur="i">
+			<item name="充电枪位置#i#充电类型" type="cdqtype" length="1" />
+			<item name="车辆VIN#i#" type="ascII" length="17" />
+			<item name="电池BMS编码#i#" type="hex" length="8" />
+			<item name="电池生产厂商名称" type="ascII" length="4" />
+			<enumitem name="电池类型" length="1" type = "hex">
+				<enumvalue>
+					<enum desc="铅酸电池">01</enum>
+					<enum desc="镍氢电池">02</enum>
+					<enum desc="磷酸铁锂电池">03</enum>
+					<enum desc="猛酸锂电池">04</enum>
+					<enum desc="钴酸锂电池">05</enum>
+					<enum desc="三元材料电池">06</enum>
+					<enum desc="聚合物理离子电池">07</enum>
+					<enum desc="钛酸锂电池">08</enum>
+					<enum desc="其他电池">FF</enum>
+				</enumvalue>
+			</enumitem>
+			<item name="电池组生产日期，年" type="byte" length="1" />
+			<item name="电池组生产日期，月" type="byte" length="1" />
+			<item name="电池组生产日期，日" type="byte" length="1" />
+			<item name="整车/分箱电池箱数" type="int" length="1" isCursor="true" />
+			<array size="$整车/分箱电池箱数$" cur="j">
+				<item name="#j#电池箱编码" type="hex" length="8" />
+			</array>
+			<item name="电池箱组ID结束标识" type="hex" length="1" />
+		</array>
+	</protocol>
+
+	<protocol id="0x31" name="充电设备当前总体状态应答/上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<enumitem name="输入电源状态" length="1">
+			<enumvalue>
+				<enum desc="正常">1</enum>
+				<enum desc="异常">2</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="平均温度" type="Tint" length="1" />
+		<item name="外部温度" type="Tint" length="1" />
+		<enumitem name="工作状态" length="1">
+			<enumvalue>
+				<enum desc="管理状态">1</enum>
+				<enum desc="服务状态">2</enum>
+				<enum desc="故障状态">3</enum>
+				<enum desc="初始化状态">9</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="可充电机模块数量" type="byte" length="1" />
+		<item name="输出有功功率" type="Wint" length="2" />
+		<item name="输出无功功率" type="Wint" length="2" />
+		<item name="充电系统总体状态" type="cdxtzt" length="1" />
+		<item name="充电系统故障状态" type="ChargeSystemFault" length="4" />
+		<item name="AC/DC控制模块故障状态" type="ModuleFault" length="4" />
+		<enumitem name="风扇总状态" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="运行">2</enum>
+				<enum desc="停止">1</enum>
+				<enum desc="故障">3</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="空调总状态" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="运行">2</enum>
+				<enum desc="停止">1</enum>
+				<enum desc="故障">3</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="加热器总状态" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="运行">2</enum>
+				<enum desc="停止">1</enum>
+				<enum desc="故障">3</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="烟雾报警总状态" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="正常">2</enum>
+				<enum desc="异常">1</enum>
+				<enum desc="故障">3</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="震动传感器报警总状态" length="1">
+			<enumvalue>
+				<enum desc="未定义">255</enum>
+				<enum desc="正常">2</enum>
+				<enum desc="异常">1</enum>
+				<enum desc="故障">3</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="充电枪数量" type="byte" length="1" />
+	</protocol>
+
+	<protocol id="0x3A" name="充/放电模块当前电池信息查询应答/上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电枪数量" type="int" length="1" isCursor="true" />
+		<array size="$充电枪数量$" cur="i">
+			<item name="充电枪位置#i#充电类型" type="cdqtype" length="1" />
+			<item name="桩侧充电枪状态#i#" type="cecdqtype" length="1" />
+			<item name="电池BMS编码#i#" type="hex" length="8" />
+			<item name="电池总电压#i#" type="Vint" length="2" />
+			<item name="电池总电流#i#" type="Aint" length="2" />
+			<item name="最高单体电压#i#" type="sVint2" length="2" />
+			<item name="最低单体电压#i#" type="sVint2" length="2" />
+			<item name="温度测量点最高值#i#" type="Tint" length="1" />
+			<item name="温度测量点最低值#i#" type="Tint" length="1" />
+			<item name="最高单体电压位置#i#" type="hex" length="2" />
+			<item name="最低单体电压位置#i#" type="hex" length="2" />
+			<item name="温度测量点最高值位置#i#" type="byte" length="1" />
+			<item name="温度测量点最低值位置#i#" type="byte" length="1" />
+			<item name="SOH#i#" type="byte" length="1" />
+			<item name="SOC#i#" type="byte" length="1" />
+			<enumitem name="充电枪工作状态#i#" length="1">
+				<enumvalue>
+					<enum desc="未定义">255</enum>
+					<enum desc="充电">1</enum>
+					<enum desc="静置">2</enum>
+					<enum desc="休眠">3</enum>
+					<enum desc="故障">4</enum>
+					<enum desc="充电暂停">5</enum>
+					<enum desc="放电">6</enum>
+					<enum desc="放电结束">7</enum>
+				</enumvalue>
+			</enumitem>
+			<item name="BMS估算剩余充电时间#i#" unit="分钟" type="int" length="2" />
+		</array>
+	</protocol>
+	<protocol id="0x39" name="充/放电模块当前充电查询应答/上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电枪数量" type="int" length="1" isCursor="true" />
+		<array size="$充电枪数量$" cur="i">
+			<item name="充电枪位置#i#放电类型" type="cdqtype" length="1" />
+			<item name="充电枪位置#i#本次累计充/放电Kwh" type="kwhint" length="2" />
+			<item name="充电枪位置#i#本次累计充/放电Ah" type="int" length="2" />
+			<item name="充电枪位置#i#本次累计充/放电时间" type="int" length="2" />
+			<item name="充电枪位置#i#充/放电起始SOC" type="byte" length="1" />
+			<item name="充电枪位置#i#当前SOC" type="byte" length="1" />
+			<item name="充电枪位置#i#电表度数Kwh" type="kwhint" length="4" />
+		</array>
+	</protocol>
+
+	<protocol id="0x3C" name="充/放电模块当前状态信息查询应答/上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电枪数量" type="int" length="1" isCursor="true" />
+		<array size="$充电枪数量$" cur="i">
+			<item name="充电枪位置#i#放电类型" type="cdqtype" length="1" />
+			<item name="充电枪位置#i#执行机构状态" type="cdstatetype" length="1" />
+			<item name="充电枪位置#i#温度检测" type="byte" length="1" />
+			<item name="充电枪位置#i#充/放电模块ID" type="hex" length="8" />
+			<item name="充电枪位置#i#电池BMS编码" type="hex" length="8" />
+			<item name="充电枪位置#i#充/放电电压" type="Vint" length="2" />
+			<item name="充电枪位置#i#充/放电电流" type="Aint" length="2" />
+			<item name="充电枪位置#i#输出功率" type="Wint" length="2" />
+			<item name="充电枪位置#i#充/放电模块故障代码" type="ModuleFault" length="2" />
+			<enumitem name="充电枪位置#i#充电机状态" length="1">
+				<enumvalue>
+					<enum desc="充电">1</enum>
+					<enum desc="停机">0</enum>
+					<enum desc="充电暂停">2</enum>
+					<enum desc="放电">3</enum>
+					<enum desc="预约锁定">9</enum>
+				</enumvalue>
+			</enumitem>
+			<enumitem name="充电枪位置#i#充/放电模式" length="1">
+				<enumvalue>
+					<enum desc="恒压">1</enum>
+					<enum desc="恒流">2</enum>
+					<enum desc="放电">3</enum>
+				</enumvalue>
+			</enumitem>
+		
+		<item name="充电枪位置#i#充电暂停原因（BMS）" type="hex" length="4" />
+		<item name="充电枪位置#i#充电暂停原因（充电机）" type="hex" length="4" />
+		</array>
+	</protocol>
+	<protocol id="0x36" name="当前电池单体信息查询应答/上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<enumitem name="查询单体数据类型" length="1">
+			<enumvalue>
+				<enum desc="查询电压">1</enum>
+				<enum desc="查询温度">2</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="充电枪数量" type="int" length="1" isCursor="true" />
+		<array size="$充电枪数量$" cur="i">
+			<item name="充电枪位置#i#充/放电类型" type="cdqtype" length="1" />
+			<item name="电池箱序号#i#" type="byte" length="1" />
+			<item name="电池箱编码#i#" type="hex" length="8" />
+			<item name="单体参数检测点总数" type="int" length="1" isCursor="true" />
+			<array size="$单体参数检测点总数$" cur="j">
+				<item name="单体参数#j#" type="int" length="2" />
+			</array>
+
+		</array>
+	</protocol>
+	<protocol id="0x3B" name="智能终端当前配电信息查询应答/上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="模块数量" type="int" length="1" isCursor="true" />
+		<array size="$模块数量$" cur="i">
+			<item name="模块编号#i#" type="byte" length="1" />
+			<item name="电表号#i#(每路)" type="ascII" length="50" />
+			<item name="电表读数#i#(每路)" type="int" length="4" />
+			<item name="输入有功功率#i#(每路)" type="Wint" length="2" />
+			<item name="输入无功功率#i#(每路)" type="Wint" length="2" />
+			<item name="输入电源电压#i#(每路)" type="Vint" length="2" />
+			<item name="输入电源电流#i#(每路)" type="Aint" length="2" />
+			<item name="输入电源功率因数#i#(每路)" type="int" length="2" />
+			<item name="输入电源谐波含量#i#(每路)" type="int" length="2" />
+			<item name="输入电源故障状态#i#(每路)" type="hex" length="4" />
+			<item name="配电故障状态#i#(每路)" type="hex" length="4" />
+			<enumitem name="配电开关#i#(每路)" length="1">
+				<enumvalue>
+					<enum desc="闭">1</enum>
+					<enum desc="开">2</enum>
+				</enumvalue>
+			</enumitem>
+			<enumitem name="配电保险#i#(每路)" length="1">
+				<enumvalue>
+					<enum desc="闭">1</enum>
+					<enum desc="开">2</enum>
+				</enumvalue>
+			</enumitem>
+		</array>
+	</protocol>
+
+	<protocol id="0x3D" name="充电设备及电池系统当前故障状态上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="故障发生时间" type="timeStamp" length="3" />
+		<item name="充电枪数量" type="int" length="1" isCursor="true" />
+		<item name="系统故障状态" type="SystemFault" length="4" />
+		<item name="充电系统故障状态" type="ChargeSystemFault" length="4" />
+		
+		<array size="$充电枪数量$" cur="i">
+			<item name="充电枪位置#i#充/放电类型" type="cdqtype" length="1" />
+			<item name="充电枪位置#i#充/放电模块故障代码" type="hex" length="4" />
+			<enumitem name="电池故障总等级" length="1">
+				<enumvalue>
+					<enum desc="无告警">0</enum>
+				</enumvalue>
+			</enumitem>
+
+			<enumitem name="电池故障代码总数量" length="1" isCursor="true">
+				<enumvalue>
+					<enum desc="无告警">0</enum>
+				</enumvalue>
+			</enumitem>
+			<array size="$电池故障代码总数量$" cur="j">
+				<enumitem name="电池故障代码#j#" length="4">
+					<enumvalue>
+						<enum desc="无告警">0</enum>
+					</enumvalue>
+				</enumitem>
+				<enumitem name="电池故障代码#j#发生位置总数" length="1" isCursor="true">
+					<enumvalue>
+						<enum desc="无告警">0</enum>
+					</enumvalue>
+				</enumitem>
+				<array size="$电池故障代码#j#发生位置总数$" cur="k">
+					<item name="电池故障代码#i#故障位置#k#" length="1" />
+				</array>
+			</array>
+			<item name="未知电池故障" type="bit" length="1" />
+			<item name="结束标识" type="hex" length="1"/>
+		</array>
+	</protocol>
+
+	<!-- created by lyh begin -->
+	<protocol id="0x1C" name="心跳包信息参数设置应答（Update）" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="心跳间隔" type="int" length="1" unit="秒" />
+		<item name="心跳超时时长" type="int" length="1" unit="秒" />
+		<item name="允许心跳丢失数" type="int" length="1" />
+		<enumitem name="设置结果" length="1">
+			<enumvalue>
+				<enum desc="成功">0</enum>
+				<enum desc="失败">1</enum>
+			</enumvalue>
+		</enumitem>
+	</protocol>
+	<protocol id="0x50" name="充电设备刷卡流程信息参数设置应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<enumitem name="设置结果" length="2">
+			<enumvalue>
+				<enum desc="成功">0</enum>
+				<enum desc="失败">1</enum>
+			</enumvalue>
+		</enumitem>
+	</protocol>
+	<protocol id="0x51" name="智能终端参数设置应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<enumitem name="设置结果" type="int" length="4" >
+			<enumvalue>
+				<enum desc="成功">0</enum>
+				<enum desc="失败">1</enum>
+			</enumvalue>
+		</enumitem>
+	
+	
+	</protocol>
+	<protocol id="0x52" name="智能终端时间同步应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="设置后时钟时间" type="time" length="7" />
+		<enumitem name="设置结果" length="1">
+			<enumvalue>
+				<enum desc="成功">0</enum>
+				<enum desc="失败">1</enum>
+			</enumvalue>
+		</enumitem>
+	
+	</protocol>
+	<protocol id="0x53" name="智能终端重启设置应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+			<enumitem name="重启" length="1">
+			<enumvalue>
+				<enum desc="成功">0</enum>
+				<enum desc="失败">1</enum>
+			</enumvalue>
+		</enumitem>
+	</protocol>
+	<protocol id="0x54" name="智能终端请求时间同步命令" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电设备编码" type="hex" length="8" />
+	</protocol>
+	<protocol id="0x55" name="智能终端动态验证码设置应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="动态验证码" type="hex" length="3" />
+		<item name="当前时间" type="timeStamp" length="3" />
+		<enumitem name="设置结果" length="1">
+			<enumvalue>
+				<enum desc="成功">0</enum>
+				<enum desc="失败">1</enum>
+			</enumvalue>
+		</enumitem>
+	</protocol>
+	<protocol id="0x56" name="智能终端工作参数应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+	<enumitem name="设置结果" length="4">
+			<enumvalue>
+				<enum desc="成功">0</enum>
+				<enum desc="失败">1</enum>
+			</enumvalue>
+		</enumitem>
+	</protocol>
+	<protocol id="0x57" name="智能终端当前配置参数查询应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="当前刷卡流程" type="process" length="2" />
+		<item name="当前认证项目" type="authPro" length="1" />
+		<item name="存储容量门限" type="int" length="4" unit="M" />
+		<item name="配置参数存储区域门限" type="int" length="4" unit="M" />
+		<item name="电池数据存储区域门限" type="int" length="4" unit="M" />
+		<item name="交易数据存储区域门限" type="int" length="4" unit="M" />
+		<item name="平台应答时间" type="int" length="2" unit="秒" />
+		<item name="智能终端当前时间" type="time" length="8" />
+		<item name="充电桩编码" type="hex" length="8" />
+		<item name="充电桩类型" type="byte" length="1" />
+		<item name="可服务电池类型" type="byte" length="1" />
+		<item name="充电枪个数" type="byte" length="1" />
+		<item name="中心服务器地址" type="ip" length="4" />
+		<item name="中心服务器端口" type="int" length="2" />
+		<item name="中心服务器域名" type="ascII" length="100" />
+		<enumitem name="通信模式" length="1" type="hex">
+			<enumvalue>
+				<enum desc="应答模式">01</enum>
+				<enum desc="上报模式">02</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="定时上报间隔" type="int" length="1" unit="秒" />
+		<item name="心跳间隔" type="int" length="1" unit="秒" />
+		<item name="心跳超时时长" type="int" length="1" unit="秒" />
+	
+		<enumitem name="上报结果" length="1">
+			<enumvalue>
+				<enum desc="成功">0</enum>
+				<enum desc="失败">1</enum>
+			</enumvalue>
+		</enumitem>
+	</protocol>
+	<protocol id="0xF0" name="通信模式设置命令应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<enumitem name="通信模式" length="1" type="hex">
+			<enumvalue>
+				<enum desc="应答模式 ">01</enum>
+				<enum desc="上报模式">02</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="定时上报间隔" type="int" length="1" unit="秒" />
+	</protocol>
+	<protocol id="0x1D" name="智能终端认证项目设置应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<enumitem name="设置结果" length="2">
+			<enumvalue>
+				<enum desc="成功">0</enum>
+				<enum desc="失败">1</enum>
+			</enumvalue>
+		</enumitem>
+	</protocol>
+	<!-- created by lyh end -->
+
+
+	<!-- /**************************************************************************** 
+		server to terminal message code list **************************************************************************** -->
+	<!-- st -->
+	<protocol id="0x03" name="充电设备远程控制参数查询" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<item name="参数类型" value="3" type="int" size="1" min="3" max="10"
+			note="3：输出功率；4：单体最高允许电压；5：单体最高允许温度；6：语音提示功能启停；7：充电设备服务启停；8：充电接口温度监控停机保护值；9：充电设备电价执行方式；10：结算界面是否显示结算电费" />
+	</protocol>
+	<protocol id="0x05" name="充电设备远程控制设置" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<item name="参数类型" value="2" type="int" size="1" min="2" max="11"
+			note="2：设置充电机启停；3：设置输出功率；4：设置单体最高允许电压；5：设置单体最高允许温度；6：设置语音提示功能启停；7：设置充电设备服务启停；8：设置充电接口温度监控停机保护值；9：设置充电设备电价执行方式；10：设置结算界面是否显示结算电费；11：设置智能终端主动与中心平台断开连接的恢复连接时间" />
+		<array name="充电模块个数" value="1" type="int" size="1" min="1" max="255"
+			note="范围1-255的整数">
+			<item name="充电模块位置编号" isSeq="true" value="1" type="int" size="1"
+				note="范围0-255的整数" />
+			<item name="充电模块控制参数" value="0" type="int" size="2" note="范围0-65535的整数" />
+		</array>
+	</protocol>
+	<protocol id="0x06" name="放电模块当前参数信息查询" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<item name="充电枪数量" value="1" type="int" size="1" min="1" max="255"
+			note="范围1-255的整数" />
+	</protocol>
+	<protocol id="0x07" name="当前充电模块参数信息查询" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<array name="充电枪数量" value="1" type="int" size="1" min="1" max="255"
+			note="范围1-255的整数">
+			<item name="充电枪位置充/放电类型" value="1" type="byte" size="1"
+				note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号 Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+		</array>
+	</protocol>
+	<protocol id="0x08" name="充/放电电池模块当前参数信息查询" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<array name="充电枪数量" value="1" type="int" size="1" min="1" max="255"
+			note="范围1-255的整数">
+			<item name="充电枪位置充/放电类型" type="byte" value="1" size="1"
+				note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号 Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+		</array>
+	</protocol>
+	<protocol id="0x21" name="充电设备当前总体状态查询" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+	</protocol>
+	<protocol id="0x22" name="充/放电模块当前电池信息查询" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<array name="充电枪数量" value="1" type="int" size="1" min="1" max="255"
+			note="范围1-255的整数">
+			<item name="充电枪位置充/放电类型" type="byte" value="1" size="1"
+				note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号 Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+		</array>
+	</protocol>
+	<protocol id="0x23" name="充/放电模块当前充电信息查询" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<array name="充电枪数量" value="1" type="int" size="1" min="1" max="255"
+			note="范围1-255的整数">
+			<item name="充电枪位置充/放电类型" type="byte" value="1" size="1"
+				note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号 Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+		</array>
+	</protocol>
+	<protocol id="0x24" name="充/放电模块当前状态信息查询" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<array name="充电枪数量" value="1" type="int" size="1" min="1" max="255"
+			note="范围1-255的整数">
+			<item name="充电枪位置充/放电类型" type="byte" value="1" size="1"
+				note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号 Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+		</array>
+	</protocol>
+	<protocol id="0x25" name="电池系统当前故障状态信息查询" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<array name="充电枪数量" value="1" type="int" size="1" min="1" max="255"
+			note="范围1-255的整数">
+			<item name="充电枪位置充/放电类型" type="byte" value="1" size="1"
+				note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号 Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+		</array>
+	</protocol>
+	<protocol id="0x26" name="电池单体当前信息查询" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<item name="查询单体数据类型" type="byte" size="1" value="1" min="1" max="2"
+			note="1=查询电压；2=查询温度" />
+		<array name="充电枪数量" type="int" size="1" value="1" note="范围1-255的整数"
+			min="1" max="255">
+			<item name="充电枪位置充/放电类型" type="byte" value="1" size="1"
+				note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号 Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+			<item name="电池箱序号" isSeq="true" type="byte" size="1" value="1"
+				note="范围1-255的整数" />
+		</array>
+	</protocol>
+	<protocol id="0x2B" name="智能终端当前配电信息查询" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<array name="模块数量" value="1" type="int" size="1" min="0" max="255"
+			note="范围0-255的整数">
+			<item name="位置编号" value="1" isSeq="int" type="byte" size="1"
+				note="范围1-255的整数" />
+		</array>
+	</protocol>
+	<protocol id="0x2D" name="充电设备及电池系统当前故障状态上报应答" direction="st">
+		<item name="报文编号" type="int" size="2" />
+		<item name="指令序号" type="int" size="2" />
+		<item name="充电设备编码" type="hex" size="8" value="0102030405060708" note="长度为8的十六进制数"/>
+		<item name="故障发生时间" type="timeStamp" size="3" value="0-0-0" note="时-分-秒"/>
+		<item name="故障确认时间" type="time" size="8" value="2015-01-01 01:01:01"
+			note="时间格式为YYYY-MM-DD hh:mm:ss"/>
+	</protocol>
+	<!-- add by zsj end -->
+	
+	<!-- created by lyh begin -->
+	<protocol id="0x0C" name="心跳包信息参数设置（Update）" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="心跳间隔" value="120" type="int" size="1" note="单位：秒" />
+		<item name="心跳超时时长" value="60" type="int" size="1" note="单位：秒" />
+		<item name="允许心跳丢失数" value="3" type="int" size="1" note="单位：次" />
+	</protocol>
+	<protocol id="0x40" name="充电设备刷卡流程信息参数设置" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="刷卡/插卡" value="0" type="byte" size="1" min="0" max="1"
+			note="1=应用；0=不应用" />
+		<item name="输入密码" value="0" type="byte" size="1" min="0" max="1"
+			note="1=应用；0=不应用" />
+		<item name="充电/查询服务选择" value="0" type="byte" size="1" min="0"
+			max="1" note="1=应用；0=不应用" />
+		<item name="输入车牌" value="0" type="byte" size="1" min="0" max="1"
+			note="1=应用；0=不应用" />
+		<item name="充电枪/充电舱门解锁" value="0" type="byte" size="1" min="0"
+			max="1" note="1=应用；0=不应用" />
+		<item name="连接充电线缆" value="0" type="byte" size="1" min="0" max="1"
+			note="1=应用；0=不应用" />
+		<item name="充电模式选择" value="0" type="byte" size="1" min="0" max="1"
+			note="1=应用；0=不应用" />
+		<item name="充电" value="0" type="byte" size="1" min="0" max="1"
+			note="1=应用；0=不应用" />
+		<item name="充电结束刷卡" value="0" type="byte" size="1" min="0" max="1"
+			note="1=应用；0=不应用" />
+		<item name="充电结束刷卡密码" value="0" type="byte" size="1" min="0" max="1"
+			note="1=应用；0=不应用" />
+		<item name="断开充电线缆" value="0" type="byte" size="1" min="0" max="1"
+			note="1=应用；0=不应用" />
+		<item name="充电枪/充电舱门锁紧" value="0" type="byte" size="1" min="0"
+			max="1" note="1=应用；0=不应用" />
+		<item name="结算" value="0" type="byte" size="1" min="0" max="1"
+			note="1=应用；0=不应用" />
+		<item name="打印凭条" value="0" type="byte" size="1" min="0" max="1"
+			note="1=应用；0=不应用" />
+	</protocol>
+	<protocol id="0x4B" name="智能终端参数设置（Update）" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="存储容量门限" value="0" type="int" size="4" note="按照M为单位" />
+		<item name="配置参数存储区域门限" value="0" type="int" size="4" note="按照M为单位" />
+		<item name="电池数据存储区域门限" value="0" type="int" size="4" note="按照M为单位" />
+		<item name="交易数据存储区域门限" value="0" type="int" size="4" note="按照M为单位" />
+		<item name="平台应答时间" value="0" type="int" size="2"
+			note="平台应答时间，即充电桩等待超时时间，单位秒" />
+	</protocol>
+	<protocol id="0x42" name="智能终端时间同步" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="标准时钟时间" type="time" size="8" value="2015-01-01 01:01:01"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+	</protocol>
+	<protocol id="0x43" name="智能终端重启设置" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="重启" type="int" size="1" value="1" note="缺省为1" />
+	</protocol>
+	<protocol id="0x44" name="智能终端时间同步请求命令应答" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="标准时钟时间" type="time" size="8" value="2015-01-01 01:01:01"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+	</protocol>
+	<protocol id="0x45" name="智能终端动态验证码设置" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="充电设备编码" type="hex" size="8" value="0102030405060708"
+			note="BCD编码" />
+		<item name="动态验证码" type="hex" size="3" value="123456" note="数字，如123456，BCD编码" />
+		<item name="时间戳" type="timeStamp" size="3" value="0-0-0" note="时-分-秒" />
+	</protocol>
+	<protocol id="0x4A" name="智能终端工作参数设置（Update）" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="充电设备编码" type="hex" size="8" value="0102030405060708"
+			note="长度为8的十六进制数" />
+		<item name="充电桩类型" type="byte" size="1" value="1" min="1" max="2"
+			note="1=直流；2=交流" />
+		<item name="可服务电池类型" type="int" size="1" value="0" note="范围0-255的整数" />
+		<item name="充电枪个数" type="int" size="1" value="0" note="范围0-255的整数" />
+		<item name="中心服务器地址" type="ip" size="4" value="0.0.0.0"
+			note="按照字节顺序：0x10 0x50 0x01 0x14 (表示IP：16.80.1.20）" />
+		<item name="中心服务器端口" type="int" size="2" value="0"
+			note="低字节在前。例如：端口10001。按照字节顺序：0x11 0x27" />
+		<item name="中心服务器域名" type="ascii" size="100" value="0"
+			note="ASCII码编码，不足补0x00" />
+	</protocol>
+	<protocol id="0x47" name="智能终端当前配置参数查询" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+	</protocol>
+	<protocol id="0x0A" name="智能终端运营参数设置" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="参数类型" type="int" size="1" value="1" min="1" max="9"
+			note="1：公司信息  2：网站信息  3：客服电话  4：本网点收费信息  5：服务接口信息  6: 注意事项  7：二维码动态首字段  8：广告灯箱开启关闭时间  9：电价性质" />
+		<item name="参数信息" value="普天新能源有限公司" type="GB" size="100"
+			note="此信息用于充电桩显示，按照GB2312/UTF-8中汉字编码方式文本描述" />
+	</protocol>
+	<protocol id="0x02" name="智能终端当前运营参数信息查询" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="查询参数类型" type="int" size="1" value="1" min="1" max="10"
+			note="1：公司信息  2：网站信息  3：客服电话  4：本网点收费信息  5：服务接口信息  6: 注意事项  7：当前动态验证码  8：广告灯箱开启关闭时间  9：电价性质  10：二维码首字段" />
+	</protocol>
+	<protocol id="0xE0" name="通信模式设置命令" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="通信模式" type="byte" size="1" value="1" min="1" max="2"
+			note="0x 01 ：应答模式  0x 02 ：上报模式" />
+		<item name="定时上报间隔" type="int" size="1" value="15" note="单位：秒" />
+	</protocol>
+	<protocol id="0x0D" name="智能终端认证项目设置" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="第三方平台用户认证" type="byte" size="1" value="0" min="0"
+			max="1" note="可选   1=应用；0=不应用    目前针对公交卡" />
+		<item name="车牌认证" type="byte" size="1" value="0" min="0" max="1"
+			note="可选   1=应用；0=不应用 " />
+		<item name="车VIN认证" type="byte" size="1" value="0" min="0" max="1"
+			note="可选   1=应用；0=不应用 " />
+		<item name="电池认证" type="byte" size="1" value="0" min="0" max="1"
+			note="可选   1=应用；0=不应用 " />
+		<item name="服务类型认证" type="byte" size="1" value="0" min="0" max="1"
+			note="可选   1=应用；0=不应用    如选择不应用，则默认自然充满 " />
+		<item name="二维码信息认证" type="byte" size="1" value="0" min="0" max="1"
+			note="可选   1=应用；0=不应用 " />
+		<item name="预留" type="byte" size="1" value="0" min="0" max="1"
+			note="可选   1=应用；0=不应用 " />
+		<item name="预留" type="byte" size="1" value="0" min="0" max="1"
+			note="可选   1=应用；0=不应用 " />
+	</protocol>
+	<!-- created by lyh end -->
+<!-- add by zqq begin -->
+	<protocol id="0xA3" name="智能终端认证项目设置" direction="st">
+		<item name="报文编号" value="0" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2"/>
+	    <item name="升级服务器 IP 地址" value="0" type="amount" size="20" note="长度不能超过20的字符串"/>
+        <item name="升级服务器端口" value="0" type="amount" size="5" note="长度不能超过5的字符串"/>
+        <item name="日志服务器 IP 地址" value="0" type="amount" size="20" note="长度不能超过20的字符串"/>
+        <item name="日志服务器端口" value="0" type="amount" size="5" note="长度不能超过5的字符串"/>    
+        <item name="升级使用用户名" value="0" type="amount" size="20" note="长度不能超过20的字符串"/>    
+        <item name="升级使用密码" value="0" type="amount" size="20" note="长度不能超过20的字符串"/>
+        <item name="设备型号" value="0" type="amount" size="20" note="长度不能超过20的字符串"/>
+        <item name="设备版本编号" value="0" type="amount" size="50" note="长度不能超过50的字符串"/>
+        <item name="执行控制" value="1" type="byte" size="1" min="1" max="3" note="1：立即执行；2：空闲执行；3：加电执行"/>
+	</protocol>
+	
+	<protocol id="0xB3" name="智能终端认证项目设置" direction="ts">
+		<item name="报文编号" type="int" length="2"/>
+		<item name="指令序号" type="int" length="2"/>
+		<enumitem name="确认升级" length="1">
+				<enumvalue>
+					<enum desc="立即执行，连接服务器进行程序下载">0</enum>
+					<enum desc="异常，不执行升级">1</enum>
+					<enum desc="稍后执行">2</enum>
+				</enumvalue>
+		</enumitem>
+	</protocol>
+	
+	<protocol id="0xB4" name="智能终端固件下载状态上报" direction="ts">
+		<item name="报文编号" type="int" length="2"/>
+		<item name="指令序号" type="int" length="2"/>
+		<item name="设备编码" type="hex" length="8"/>
+		<item name="设备版本编号" type="ascII" length="50"/>
+		<enumitem name="FTP下载状态" length="1">
+				<enumvalue>
+					<enum desc="下载成功">0</enum>
+					<enum desc="下载失败">1</enum>
+				</enumvalue>
+		</enumitem>
+	</protocol>
+	
+	<protocol id="0xB5" name="智能终端升级服务状态上报" direction="ts">
+		<item name="报文编号" type="int" length="2"/>
+		<item name="指令序号" type="int" length="2"/>
+		<item name="设备编码" type="hex" length="8"/>
+		<item name="设备版本编号" type="ascII" length="50"/>
+		<enumitem name="确认升级" length="1">
+				<enumvalue>
+					<enum desc="升级成功">0</enum>
+					<enum desc="升级失败">1</enum>
+				</enumvalue>
+		</enumitem>
+	</protocol>
+	
+	<protocol id="0x81" name="智能终端历史记录条数查询命令" direction="st">
+		<item name="报文编号" type="int" size="2" value="0"/>
+		<item name="指令序号" type="int" size="2" value="0"/>
+		<item name="查询类型" type="byte" size="1" value="1" min ="1" max ="4" note="1=历史充/放电纪录；2=历史事件；3=历史告警；4=历史充电过程记录"/>
+		<item name="查询开始时间" type="time" size="8" value="2017-01-19 15:01:13" note="时间格式为YYYY-MM-DD hh:mm:ss"/>
+		<item name="查询结束时间" type="time" size="8" value="2015-01-19 15:01:13" note="时间格式为YYYY-MM-DD hh:mm:ss"/>
+	</protocol>
+	
+	
+	
+	
+	<protocol id="0x91" name="智能终端历史记录条数查询命令应答" direction="ts">
+		<item name="报文编号" type="int" length="2"/>
+		<item name="指令序号" type="int" length="2"/>
+		<item name="目前设备历史纪录存储条数" type="hex" length="4"/>
+		<item name="查询时间范围内历史纪录存储条数" type="hex" length="4"/>
+		<item name="查询时间范围内第一条标记号" type="hex" length="4"/>
+		<item name="查询时间范围内第一条纪录ID号" type="hex" length="4"/>
+	</protocol>
+	
+	
+	<protocol id="0x84" name="智能终端历史充/放电记录查询命令" direction="st">
+		<item name="报文编号" type="int" size="2" value="0"/>
+		<item name="指令序号" type="int" size="2" value="0"/>
+		<item name="设备编码" type="hex" size="8" value="0" note=" "/>
+		<item name="查询记录编号方式" type="byte" size="1" value="1" min="1" max="2" note="1=标记编号，1永远是最新记录;2=记录ID号；充电设备厂家对历史纪录的存储标号"/>
+		<item name="编号" type="ascii" size="4" value="1" note="01020304"/>
+	</protocol>
+	
+	<protocol id="0x94" name="智能终端历史充/放电记录查询命令应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="记录序号" type="hex" length="4" />
+		<item name="充电枪位置充/放电类型" type="cdqtype" length="1"/>
+		<item name="充电桩编号" type="hex" length="8"/>
+		<item name="卡号" type="ascII" length="16"/>
+		<item name="中心交易流水号" type="ascII" length="15"/>
+		<item name="充电预约编号" type="ascII" length="5"/>
+		<item name="车辆VIN" type="ascII" length="17"/>
+		<item name="车牌号" type="carstr" length="8"/>
+		<item name="开始充/放电SOC" type="byte" length="1"/>
+		<item name="结束充/放电SOC" type="byte" length="1"/>
+		<item name="充/放电时间在尖时段时间段数" type="int" length="1" isCursor="true"/>
+		<array size="$充/放电时间在尖时段时间段数$" cur="i">
+		    <item name="尖时段#i#开始充/放电时刻" type="timeStamp" length="3"/>
+		    <item name="尖时段#i#结束充/放电时刻" type="timeStamp" length="3"/>
+		</array>
+		<item name="尖时段累计充/放电时长" unit="秒" type="int" length="4" />
+		<item name="尖时段累计充/放电能" type="kwhint" length="2"/>
+		
+		<item name="充/放电时间在峰时段时间段数" type="int" length="1" isCursor="true"/>
+		<array size="$充/放电时间在峰时段时间段数$" cur="i">
+		    <item name="峰时段#i#开始充/放电时刻" type="timeStamp" length="3"/>
+		    <item name="峰时段#i#结束充/放电时刻" type="timeStamp" length="3"/>
+		</array>
+		<item name="峰时段累计充/放电时长" unit="秒" type="int" length="4" />
+		<item name="峰时段累计充/放电能" type="kwhint" length="2"/>
+		
+		<item name="充/放电时间在平时段时间段数" type="int" length="1" isCursor="true"/>
+		<array size="$充/放电时间在平时段时间段数$" cur="i">
+		    <item name="平时段#i#开始充/放电时刻" type="timeStamp" length="3"/>
+		    <item name="平时段#i#结束充/放电时刻" type="timeStamp" length="3"/>
+		</array>
+		<item name="平时段累计充/放电时长" unit="秒" type="int" length="4" />
+		<item name="平时段累计充/放电能" type="kwhint" length="2"/>
+		<item name="充/放电时间在谷时段时间段数" type="int" length="1" isCursor="true"/>
+		<array size="$充/放电时间在谷时段时间段数$" cur="i">
+		    <item name="谷时段#i#开始充/放电时刻" type="timeStamp" length="3"/>
+		    <item name="谷时段#i#结束充/放电时刻" type="timeStamp" length="3"/>
+		</array>
+		<item name="谷时段累计充/放电时长" unit="秒" type="int" length="4" />
+		<item name="谷时段累计充/放电能" type="kwhint" length="2"/>
+		<item name="本次累计充/放电量" unit="安时" type="int" length="2"/>
+		<item name="本次累计充/放电能" unit="千瓦时" type="kwhint" length="2" />
+		<item name="充/放电时间长度" unit="秒" type="int" length="4" />
+		
+		<enumitem name="充电满策略" length="1">
+				<enumvalue>
+					<enum desc="自定义时间充电">1</enum>
+					<enum desc="自定义电度数充电">2</enum>
+					<enum desc="自定义金额">3</enum>
+					<enum desc="自然充电">4</enum>
+					<enum desc="放电">5</enum>				
+				</enumvalue>
+		</enumitem>			
+		<enumitem name="是否正常结束" length="1">
+				<enumvalue>
+					<enum desc="正常结束">1</enum>
+					<enum desc="异常结束">2</enum>
+					<enum desc="故障停机">3</enum>
+					<enum desc="故障停机">4</enum>	
+					<enum desc="故障停机">5</enum>	
+					<enum desc="故障停机">6</enum>	
+					<enum desc="故障停机">7</enum>	
+					<enum desc="故障停机">8</enum>	
+					<enum desc="故障停机">9</enum>	
+					<enum desc="故障停机">10</enum>	
+					<enum desc="故障停机">11</enum>	
+					<enum desc="故障停机">12</enum>	
+					<enum desc="故障停机">13</enum>	
+					<enum desc="故障停机">14</enum>	
+					<enum desc="故障停机">15</enum>	
+					<enum desc="系统故障停机">16</enum>
+					<enum desc="充电系统故障停机">17</enum>	
+					<enum desc="充电模块故障停机">18</enum>	
+					<enum desc="电池故障停机">19</enum>	
+					<enum desc="远程停机">80</enum>	
+					<enum desc="刷卡停机">81</enum>
+					<enum desc="订单号验证停机">82</enum>
+						
+				</enumvalue>
+		</enumitem>	
+		<item name="开始日期时间" type="time" length="8" />
+		<item name="结束日期时间" type="time" length="8" />
+		<item name="充电服务结束日期时间" type="time" length="8" />
+		<item name="开始电表度数" type="kwhint" length="4" />
+		<item name="结束电表度数" type="kwhint" length="4" />
+		
+	</protocol>
+	<protocol id="0xE1" name="数据管理操作命令" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+		<item name="数据管理操作模式" type="hex" size="1" value="0x01" showType="enum" note="0x01 ：查询；0x99 ：清空"/>
+		<item name="数据类型" type="byte" size="1" value="0" min ="0" max ="4" note="0=所有历史数据；1=历史充电记录；2=历史事件；3=历史告警；4=历史充电过程记录"/>
+	</protocol>
+	<protocol id="0xF1" name="数据管理操作命令应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<enumitem name="数据管理模式" length="1" type="hex">
+			<enumvalue>
+				<enum desc="查询">01</enum>
+				<enum desc="清空">99</enum>
+			</enumvalue>
+		</enumitem>			
+		<enumitem name="数据类型" length="1">
+			<enumvalue>
+				<enum desc="所有历史数据">0</enum>
+				<enum desc="历史充电记录">1</enum>
+				<enum desc="历史事件">2</enum>
+				<enum desc="历史告警">3</enum>
+				<enum desc="历史充电过程记录">4</enum>
+			</enumvalue>
+		</enumitem>			
+		<item name="总记录数" type="int" length="4" />
+		<item name="现有记录最大序号" type="int" length="4" />
+	</protocol>
+	<protocol id="0xE2" name="数据管理模式命令" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+		<item name="数据管理操作模式" type="byte" size="1" value="1" min ="1" max ="2" note="1 ：查询；2 ：设置"/>
+		<item name="数据类型" type="byte" size="1" value="0" min ="0" max ="4" note="0=所有历史数据；1=历史充电记录；2=历史事件；3=历史告警；4=历史充电过程记录"/>
+		<item name="数据管理模式" type="byte" size="1" value="1" min ="0" max ="2"  note="本参数仅在设置模式下有效，缺省为0。1 ：人工擦除；2 ：自动擦除"/>
+	</protocol>
+	
+		
+	<protocol id="0xF2" name="数据管理模式命令应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<enumitem name="数据管理操作" length="1" type="hex">
+			<enumvalue>
+				<enum desc="查询">01</enum>
+				<enum desc="设置">02</enum>
+			</enumvalue>
+		</enumitem>			
+		<enumitem name="数据类型" length="1">
+			<enumvalue>
+				<enum desc="所有历史数据">0</enum>
+				<enum desc="历史充电记录">1</enum>
+				<enum desc="历史事件">2</enum>
+				<enum desc="历史告警">3</enum>
+				<enum desc="历史充电过程记录">4</enum>
+			</enumvalue>
+		</enumitem>	
+		<enumitem name="数据管理模式" length="1" type="hex">
+			<enumvalue>
+				<enum desc="人工擦除">01</enum>
+				<enum desc="自动擦除">02</enum>
+			</enumvalue>
+		</enumitem>			
+	</protocol>
+	
+	<protocol id="0x86" name="智能终端历史事件记录查询命令" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+		<item name="开始日期时间" type="time" size="8" value="2015-08-13 15:01:13" note="时间格式为YYYY-MM-DD hh:mm:ss"/>
+		<item name="结束日期时间" type="time" size="8" value="2015-08-13 15:01:13" note="时间格式为YYYY-MM-DD hh:mm:ss"/>
+		<item name="查询类型" type="int" size="1" value="1" min ="1" max ="12"  note="1 ：开机上电；2 ：关机；3：自检；4：刷卡；5：充电开始；6：充电结束；7：检修；8：升级；9：参数配置；10：数据补传；11：删除历史数据；12：历史数据导出"/>
+		<item name="查询条数" type="int" size="2" value="1" min="0" max="65535" note="范围0-65535的整数"/>
+	</protocol>	
+	
+	<protocol id="0x96" name="智能终端历史事件记录查询命令应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电桩编号1" type="hex" length="8" />
+		<item name="查询类型" type="hex" length="1" />
+		<item name="记录数" type="int" length="1" isCursor="true"/>
+		<array size="$记录数$" cur="i">
+			<item name="记录序号#i#" type="int" length="4" />
+			<item name="时间#i#"  type="time" length="8" />
+			<item name="类型代码#i#" type="hex" length="1" />
+		</array>
+	</protocol>
+	
+	<protocol id="0x87" name="智能终端历史告警记录查询命令" direction="st"> 
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+        <item name="开始日期时间" type="time" size="8" value="2015-08-13 15:01:13" note="时间格式为YYYY-MM-DD hh:mm:ss"/>
+		<item name="结束日期时间" type="time" size="8" value="2015-08-13 15:01:13" note="时间格式为YYYY-MM-DD hh:mm:ss"/>
+		<item name="查询类型" type="byte" size="1" value="1" min ="1" max ="4" note="1：系统故障状态；2：充电系统故障状态；3：充电模块故障；4：电池故障"/>
+		<item name="查询条数" type="int" size="2" value="1" note="范围0-65535的整数"/>  
+	</protocol>
+	
+	<protocol id="0x97" name="智能终端历史告警记录查询命令应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电桩编号1" type="hex" length="8" />
+		<item name="查询类型" type="hex" length="1" />
+		<item name="记录数" type="int" length="1" isCursor="true"/>
+		<array size="$记录数$" cur="i">
+			<item name="记录序号#i#" type="int" length="4" />
+			<item name="时间#i#" type="time"  length="8" />
+			<enumitem name="模块编号#i#" length="1">
+				<enumvalue>
+					<enum desc="系统">0</enum>
+				</enumvalue>
+			</enumitem>
+			<item name="故障代码#i#" type="fhex" length="4" />
+		</array>
+	</protocol>
+	
+	<protocol id="0x88" name="智能终端历史充电过程记录查询命令" direction="st"> 
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+        <item name="开始日期时间" type="time" size="8" value="2015-08-13 15:01:13" note="时间格式为YYYY-MM-DD hh:mm:ss"/>
+		<item name="结束日期时间" type="time" size="8" value="2015-08-13 15:01:13" note="时间格式为YYYY-MM-DD hh:mm:ss"/>
+		<item name="查询类型" type="int" size="1" value="0" note="范围0-255的整数"/>
+		<item name="查询条数" type="int" size="2" value="2" note="范围0-65535的整数"/>  
+	</protocol>
+	
+	
+	<protocol id="0x98" name="智能终端历史充电过程记录查询命令应答" direction="ts">
+		<!-- <item name="命令代码" length="1">0x98</item> -->
+		<item name="报文编号" type="int" length="2"/>
+		<item name="指令序号" type="int" length="2"/>
+		<item name="充电桩编号1" type="hex" length="8"/>
+		<enumitem name="查询类型" length="1" type="hex">
+			<enumvalue>
+				<enum desc="充电过程记录代码">12</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="记录数" type="int" length="1" />
+		<item name="记录序号1" type="hex" length="4"/>
+		<!--  7位时间类型代表没有最后一位保留的0xFF -->
+		<item name="时间" type="time" length="7"/>
+		<item name="充电机ID" type="hex" length="8"/>
+		<item name="充电枪位置充电类型" type="cdqtype" length="1"/> 
+		<item name="最高允许输出电压" type="Vint" length="2"/>
+		<item name="最低允许输出电压" type="Vint" length="2"/>
+		<item name="最大允许输出电流" type="Aint" length="2"/>
+		<item name="累计充电Kwh" unit="千瓦时" type="kwhint" length="2"/>
+		<item name="累计充电Ah" unit="安时" type="int" length="2"/>
+		<item name="累计充电时间" type="byte" length="1"/>
+		<item name="充电起始SOC" type="socint"  length="1"/>
+		<item name="当前SOC" type="socint" length="1"/>
+		<item name="充电枪插入状态" type="byte" length="1"/>
+		<item name="充电电压" type="Vint"  length="2"/>
+		<item name="充电电流" type="Aint" length="2"/>
+		<item name="输出功率" type="Vint"  length="2"/>
+		<item name="通信协议版本号" type="version" length="3"/>
+		<item name="普天通讯协议版本" type="version" length="4"/>
+		<item name="整车/分箱蓄电池额定容量" type="int" length="2"/>
+		<item name="整车/分箱蓄电池额定总电压" type="Vint" length="2"/>
+		<item name="整车/分箱蓄电池箱数 n" type="byte" length="1"/>
+		<item name="整车/分箱电池串联数" type="byte" length="1"/>
+		<item name="整车/分箱电池并联数" type="byte" length="1"/>
+		<item name="电池温度采集点数" type="int" length="2"/>
+		<item name="蓄电池模块最高允许充电电压" type="Vint" length="2"/>
+		<item name="最高允许充电电流" type="Aint" length="2"/>
+		<item name="标称总容量" type="int" length="2"/>
+		<item name="最高允许充电总电压" type="Vint" length="2"/>
+		<item name="最高允许蓄电池温度" type="Tint" length="2"/>
+		<item name="SOH" type="byte" length="1"/>
+		<item name="整车/分箱蓄电池荷电状态" type="byte" length="1"/>
+		<item name="整车/分箱蓄电池总电压"  type="Vint" length="2"/>
+		<item name="电池组需求总电压"  type="Vint" length="2"/>
+		<item name="电池组需求总电流"  type="Aint" length="2"/>
+		<item name="充电电压测量值" type="Vint" length="2"/>
+		<item name="充电电流测量值"  type="Aint" length="2"/>
+		<item name="电池组最低温度" type="Tint" length="1"/>
+		<item name="电池组最高温度"  type="Tint" length="1"/>
+		<item name="估算充满时间/min" type="int" length="2"/>
+		<item name="BMS 中止充电原因" type="hexprocess" length="4"/>
+		<item name="电池单体最低电压" type="sVint2" length="2"/>
+		<item name="电池单体最高电压" type="sVint2" length="2"/>
+		<item name="BMS ID" type="hex" length="8"/>
+		<item name="错误数据" type="hexprocess" length="4"/>
+		<item name="车辆VIN" type="ascII" length="17"/>
+		<item name="电池箱数" type="byte" length="1" isCursor="true"/>
+		<array size="$电池箱数$" cur="j" >
+			<item name="电池箱 ID #j#" type="hex"  length="8"/>
+		</array>
+	</protocol>
+
+
+
+
+<!-- add by zqq end -->
+
+	<!-- add by xqx start -->
+
+	<protocol id="0x6D" name="账户查询应答" direction="st">
+		<item name="报文编号" value="1" type="int" size="2" min="1" max="65535"
+			note="范围1-65535的整数" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="卡号" value="0" type="ascii" size="16" note="长度不能超过16的字符串" />
+		<item name="客户姓名" value="0" type="GB" size="20" note="长度不超过10的字符串" />
+		<item name="响应码" value="000000" type="ascii" size="6"
+			note="在000000-00000A及100001中选择" />
+		<item name="响应码描述" value="0" type="GB" size="40"
+			note="此描述由充电桩显示，提示返回结果,按照GB2312/UTF-8中汉字编码方式长度不足，采用空字符串补足" />
+		<item name="客户号" value=" , , " type="GB" size="30"
+			note="客户号格式：AAA，BBB，CCC （AAA表示车辆VIN、BBB 表示车牌号、CCC 表示公司缩写）。长度不能超过30的字符串" />
+		<item name="电费主账户余额" value="100.00" type="amount" size="12"
+			note="长度不能超过12的数，小数点后最多两位 " />
+		<item name="电费主账户可用余额" value="100.00" type="amount" size="12"
+			note="长度不能超过12的数，小数点后最多两位" />
+		<item name="服务费账户余额" value="90.00" type="amount" size="12"
+			note="长度不能超过12的数，小数点后最多两位" />
+		<item name="服务费账户可用余额" value="90.00" type="amount" size="12"
+			note="长度不能超过12的数，小数点后最多两位" />
+		<item name="中心交易流水" value="0" type="ascii" size="15" note="不超过15位的字符串" />
+		<item name="BOSS出单机构流水号" value="0" type="ascii" size="20"
+			note="长度不能超过20的字符串" />
+		<item name="本次允许充电电量" value="0" type="hex" size="4"
+			note="=0x ffffffff 表示不约束,否则本次充电按照此参数控制实际充电电量小于等于本参数" />
+		<item name="本次允许充电时间" value="1" type="hex" size="4"
+			note="=0x ffffffff 表示不约束，否则本次充电按照此参数控制实际充电时间小于等于本参数" />
+		<item name="交易日期时间" value="2015-08-10 10:12:13" type="time" size="8"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+		<item name="报文认证码" value="0" type="hex" size="8" note="长度为8的十六进制数" />
+
+	</protocol>
+
+	<protocol id="0x70" name="账户查询指令上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="卡号" type="ascII" length="16" />
+		<item name="客户证件类型" type="byte" length="1" />
+		<item name="客户证件号码" type="ascII" length="20" />
+		<item name="受理渠道" type="hex" length="2" />
+		<item name="出单机构流水号" type="ascII" length="20" />
+		<item name="出单机构代码" type="ascII" length="15" />
+		<item name="受理操作员编号" type="ascII" length="20" />
+		<item name="交易日期时间" type="time" length="8" />
+		<item name="支付密码" type="ascII" length="16" />
+		<item name="服务收费标识" type="byte" length="1" />
+		<item name="服务收费金额" type="ascII" length="12" />
+		<item name="报文认证码" type="hex" length="8" />
+	</protocol>
+
+	<protocol id="0x61" name="服务类型申请指令应答" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+		<item name="卡号" type="ascii" size="16" value="0" note="长度不能超过16的字符串" />
+		<item name="交易类型" type="byte" size="1" value="0x20"
+			note="0x01:换电服务（2块）,0x02:换电服务（4块）,0x10:充电服务 ,0x20:自然充满,0x30:按时间,0x40:按电量" />
+		<item name="交易日期时间" type="time" size="8" value="2015-08-13 10:10:10"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+		<item name="中心交易流水" value="0" type="ascii" size="15" note="长度不能超过15的字符串" />
+		<item name="BOSS出单机构流水号" value="0" type="ascii" size="20"
+			note="长度不能超过20的字符串" />
+	</protocol>
+
+	<protocol id="0x71" name="服务类型申请指令" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="卡号" type="ascII" length="16" />
+		<enumitem name="交易类型" length="1" type="hex">
+			<enumvalue>
+				<enum desc="换电服务（2块）">01</enum>
+				<enum desc="换电服务（4块）">02</enum>
+				<enum desc="充电服务">10</enum>
+				<enum desc="自然充满">20</enum>
+				<enum desc="按时间">30</enum>
+				<enum desc="按电量">40</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="交易日期时间" type="time" length="8" />
+	</protocol>
+
+	<!-- 充电枪位置充/放电类型" -->
+	<protocol id="0x62" name="电池认证查询应答" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+		<item name="模块个数" type="int" size="1" value="1" note="N个" />
+		<item name="充电枪位置充/放电类型" type="byte" size="1" value="1"
+			note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号  Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+		<array name="电池个数" type="int" size="1" value="1" note="1-255的整数">
+			<item name="电池箱编码" type="hex" size="8" value="1" note="长度为8的十六进制数" />
+			<item name="电池类型" type="byte" size="1" value="1" note="非0表示合法电池" />
+		</array>
+		<item name="交易日期时间" type="time" size="8" value="2015-08-13 12:12:12"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+	</protocol>
+
+	<!-- 充电枪位置充/放电类型" -->
+	<protocol id="0x72" name="电池认证查询指令" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="模块个数" type="int" length="1" />
+		<item name="充电枪位置充/放电类型" type="cdqtype" length="1" />
+		<item name="电池个数" type="int" length="1" isCursor="true" />
+		<array size="$电池个数$" cur="i">
+			<item name="电池箱编码 #i#" type="hex" length="8" />
+		</array>
+		<item name="交易日期时间" type="time" length="8" />
+	</protocol>
+
+	<!-- 充电枪位置充/放电类型" -->
+	<protocol id="0x68" name="充/放电记录上报应答" direction="st">
+		<item name="报文编号" value="0" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="充电枪位置充/放电类型" value="1" type="byte" size="1"
+			note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号  Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+		<item name="卡号" value="0" type="ascii" size="16" note="长度不能超过16的字符串" />
+		<item name="客户号" value="0" type="GB" size="30" note="长度不能超过30的字符串" />
+		<item name="本次充/放电结算时间和电量" value="10;1.2;56" type="ascii" size="12"
+			note="格式：充电时间;电量;结束SOC “；”隔离 ①充电时间 单位:分钟②电量 单位：度③电量 单位：%" />
+		<item name="本次充/放电结算电费" value="1.03" type="amount" size="12"
+			note="长度不能超过12的数，小数点后最多两位 " />
+		<item name="本次充/放电服务费" value="1.23" type="amount" size="12"
+			note="长度不能超过12的数，小数点后最多两位 " />
+		<item name="本次累计消费总金额" value="2.26" type="amount" size="12"
+			note="长度不能超过12的数，小数点后最多两位 " />
+		<item name="中心交易流水" value="0" type="ascii" size="15" note="长度不能超过15的字符串" />
+		<item name="BOSS出单机构流水号" value="0" type="ascii" size="20"
+			note="长度不能超过20的字符串" />
+		<item name="交易日期时间" value="2015-08-10 10:12:13" type="time" size="8"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+	</protocol>
+
+	<!-- 充电枪位置充/放电类型" -->
+	<protocol id="0x7D" name="充/放电记录上报指令" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电枪位置充/放电类型" type="cdqtype" length="1" />
+		<item name="卡号" type="ascII" length="16" />
+		<item name="中心交易流水号" type="ascII" length="15" />
+		<item name="充电预约编码" type="ascII" length="5" />
+		<item name="充电机编码" type="hex" length="8" />
+		<item name="车辆VIN" type="ascII" length="17" />
+		<item name="车牌号" type="carstr" length="8" />
+		<item name="开始充/放电SOC" type="int" length="1" />
+		<item name="结束充/放电SOC" type="int" length="1" />
+		<item name="充/放电时间在尖时段时间段数" type="int" length="1" isCursor="true" />
+		<array size="$充/放电时间在尖时段时间段数$" cur="i">
+			<item name="尖时段#i#开始充/放电时刻 " type="timeStamp" length="3" />
+			<item name="尖时段#i#结束充/放电时刻 " type="timeStamp" length="3" />
+		</array>
+		<item name="尖时段累计充/放电时长" unit="秒" type="int" length="4" />
+		<item name="尖时段累计充/放电能" unit="kwh" type="kwhint" length="2" />
+
+		<item name="充/放电时间在峰时段时间段数" type="int" length="1" isCursor="true" />
+		<array size="$充/放电时间在峰时段时间段数$" cur="i">
+			<item name="峰时段#i#开始充/放电时刻 " type="timeStamp" length="3" />
+			<item name="峰时段#i#结束充/放电时刻 " type="timeStamp" length="3" />
+		</array>
+		<item name="峰时段累计充/放电时长" unit="秒" type="int" length="4" />
+		<item name="峰时段累计充/放电能" unit="kwh" type="kwhint" length="2" />
+
+
+		<item name="充/放电时间在平时段时间段数" type="int" length="1" isCursor="true" />
+		<array size="$充/放电时间在平时段时间段数$" cur="i">
+			<item name="平时段#i#开始充/放电时刻 " type="timeStamp" length="3" />
+			<item name="平时段#i#结束充/放电时刻 " type="timeStamp" length="3" />
+		</array>
+		<item name="平时段累计充/放电时长" unit="秒" type="int" length="4" />
+		<item name="平时段累计充/放电能" unit="kwh" type="kwhint" length="2" />
+
+		<item name="充/放电时间在谷时段时间段数" type="int" length="1" isCursor="true" />
+		<array size="$充/放电时间在谷时段时间段数$" cur="i">
+			<item name="谷时段#i#开始充/放电时刻 " type="timeStamp" length="3" />
+			<item name="谷时段#i#结束充/放电时刻 " type="timeStamp" length="3" />
+		</array>
+		<item name="谷时段累计充/放电时长" unit="秒" type="int" length="4" />
+		<item name="谷时段累计充/放电能" unit="kwh" type="kwhint" length="2" />
+
+		<item name="本次累计充/放电量" unit="安时" type="int" length="2" />
+		<item name="本次累计充/放电能" unit="kwh" type="kwhint" length="2" />
+		<item name="充/放电时间长度" unit="秒" type="int" length="4" />
+		<enumitem name="充电策略" length="1">
+			<enumvalue>
+				<enum desc="自定义时间充电">1</enum>
+				<enum desc="自定义电度数充电">2</enum>
+				<enum desc="自定义金额">3</enum>
+				<enum desc="自然充电">4</enum>
+				<enum desc="放电">5</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="充电策略参数" length="2" type="hex"/>
+		<enumitem name="是否正常结束" length="1">
+			<enumvalue>
+				<enum desc="正常结束">1</enum>
+				<enum desc="异常结束">2</enum>
+				<enum desc="故障停机(紧急停机按钮停机，充电机停止)">3</enum>
+                <enum desc="故障停机(CC1故障，连接确认故障)">4</enum>
+				<enum desc="故障停机(BMS故障，充电机停止)">5</enum>
+				<enum desc="故障停机(BMS错误，充电机停止)">6</enum>
+				<enum desc="故障停机(单体电池电压过高，充电机停止)">7</enum>
+				<enum desc="故障停机(单体电池温度过高，充电机停止)">8</enum>
+				<enum desc="故障停机(输入过压，充电机停止)">9</enum>
+				<enum desc="故障停机(输入欠压，充电机停止)">10</enum>
+				<enum desc="故障停机(输入缺相，充电机停止)">11</enum>
+				<enum desc="故障停机(输出短路，充电机停止)">12</enum>
+				<enum desc="故障停机(内部故障（充电机自检故障），充电机停止)">13</enum>
+				<enum desc="故障停机(输出过压，充电机停止)">14</enum>
+				<enum desc="故障停机(直流输出断路，充电机停止)">15</enum>
+				<enum desc="系统故障停机">16</enum>
+				<enum desc="充电系统故障停机">17</enum>
+				<enum desc="充电模块故障停机">18</enum>
+				<enum desc="电池故障停机">19</enum>
+				<enum desc="远程停机">80</enum>
+				<enum desc="刷卡停机">81</enum>
+				<enum desc="订单号验证停机">82</enum>
+			</enumvalue>
+		</enumitem>
+		<item type="timeN" name="充电开始日期时间" length="8" />
+		<item type="timeN" name="充电结束日期时间" length="8" />
+		<item type="timeN" name="交易开始日期时间" length="8" />
+		<item name="开始电表度数" type="kwhint" length="4" />
+		<item name="结束电表度数" type="kwhint" length="4" />
+		<enumitem name="充电服务是否结束" length="1">
+			<enumvalue>
+				<enum desc="结束">1</enum>
+				<enum desc="未结束">2</enum>
+			</enumvalue>
+		</enumitem>
+	</protocol>
+
+	<!-- 充电枪位置充/放电类型" -->
+	<protocol id="0x64" name="充/放电记录查询指令应答" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+		<item name="充电枪位置充/放电类型" type="byte" size="1" value="1"
+			note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号  Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+		<item name="卡号" type="ascii" size="16" value="0" note="长度不能超过16的字符串" />
+		<array name="记录条数" type="int" size="1" value="1" note="范围0-65535的整数">
+			<item name="电池BMS编码" type="hex" size="8" value="0" note="长度为8的十六进制数" />
+			<item name="开始充/放电SOC" type="int" size="1" value="0" note="电量 单位：%"/>
+			<item name="结束充/放电SOC" type="int" size="1" value="0" note="电量 单位：%"/>
+			<item name="本次累计充/放电量" type="int" size="2" value="1" note="单位为安时" />
+			<item name="本次累计充/放电能" type="kwhint" size="2" value="1" note="单位为千瓦时" />
+			<item name="充/放电时间长度" type="int" size="4" value="60" note="单位为秒" />
+			<item name="充满策略" type="int" size="1" value="1"
+				note="1=自定义时间充电；2=自定义电度数充电;3=自定义金额；4=自然充电5=放电" />
+			<item name="充满策略参数" type="int" size="2" value="1"
+				note="1=自定义时间（分钟）；2=自定义电度数（Kwh）;3=自定义金额（元）;4=自然充电（0）5=放电" />
+			<item name="是否正常结束" type="int" size="1" value="1" note="1=正常;2=异常" />
+			<item name="开始日期时间" type="time" size="8" value="2015-01-01 01:01:01"
+				note="时间格式为YYYY-MM-DD hh:mm:ss" />
+			<item name="结束日期时间" type="time" size="8" value="2015-08-13-10:10:10"
+				note="时间格式为YYYY-MM-DD hh:mm:ss" />
+			<item name="交易开始日期时间" type="time" size="8" value="2015-08-08 08:08:08"
+				note="时间格式为YYYY-MM-DD hh:mm:ss" />
+		</array>
+	</protocol>
+
+	<protocol id="0x74" name="充/放电记录查询指令" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="预留" type="byte" length="1" />
+		<item name="卡号" type="ascII" length="16" />
+		<item name="查询记录条数" type="int" length="1" />
+	</protocol>
+
+	<protocol id="0x65" name="车牌认证查询指令应答" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+		<item name="充电枪位置1充电类型" type="byte" size="1" value="1" note="1=直流；2=交流；" />
+		<item name="车辆车牌编码" type="carstr" size="8" value="0"
+			note="参考GB2312/UTF-8中汉字编码方式 ，“粤”编码：0xD4C1。比如粤BA1234，byte0~byte7依次填充为0xC1，0xD4，0x41，0x42，0x31，0x32，0x33，0x34" />
+		<item name="车辆VIN" type="ascii" size="17" value=" "
+			note="如果车牌非法,车辆VIN为空字符串“”" />
+		<item name="交易日期时间" type="time" size="8" value="2015-08-07 12:12:12"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+	</protocol>
+
+	<protocol id="0x75" name="车牌认证查询指令" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电枪位置1充电类型" type="cdqtype" length="1"/>	
+		<item name="车辆车牌编码" type="carstr" length="8" />
+		<item name="交易日期时间" type="time" length="8" />
+	</protocol>
+
+	<protocol id="0x6C" name="合法用户认证通过指令应答" direction="st">
+		<item name="报文编号" value="0" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="卡号" value="0" type="ascii" size="16" note="长度不能超过16的字符串" />
+		<item name="流程序号" value="0" type="hex" size="8" note="长度为8的十六进制数" />
+		<item name="客户号" value="0" type="GB" size="30"
+			note="客户号格式：AAA，BBB，CCC （AAA表示车辆VIN、BBB 表示车牌号、CCC 表示公司缩写）。长度不能超过30的字符串" />
+		<item name="电费主账户余额" value="100.00" type="amount" size="12"
+			note="长度不能超过12的数，小数点后最多两位" />
+		<item name="电费主账户可用余额" value="100.00" type="amount" size="12"
+			note="长度不能超过12的数，小数点后最多两位" />
+		<item name="服务费账户余额" value="90.00" type="amount" size="12"
+			note="长度不能超过12的数，小数点后最多两位" />
+		<item name="服务费账户可用余额" value="90.00" type="amount" size="12"
+			note="长度不能超过12的数，小数点后最多两位" />
+		<item name="中心交易流水" value="0" type="ascii" size="15" note="长度不能超过15的字符串" />
+		<item name="BOSS出单机构流水号" value="0" type="ascii" size="20"
+			note="长度不能超过20的字符串" />
+		<item name="交易日期时间" value="2015-08-13 10:10:10" type="time" size="8"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+		<item name="充电端口" value="1" type="int" size="1" note="范围0-255的整数" />
+		<item name="本次充电模式" value="20" type="hex" size="1"
+			note="0x20:自然充满（“计划充电时长”与“计划充电度数”设置=0）；0x30:按时间（具体时长参照“计划充电时长”）；0x40:按电量（具体时长参照“计划充电度数”）。长度为1的十六进制数" />
+		<item name="计划充电时长" value="1" type="int" size="4" note="范围0-255的整数" />
+		<item name="计划充电度数" value="0" type="kwhint" size="4"
+			note="范围0-4294967295的整数" />
+		<item name="报文认证码" value="0" type="hex" size="8" note="长度为8的十六进制数" />
+	</protocol>
+
+	<protocol id="0x7A" name="合法用户认证通过信息指令应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="卡号" type="ascII" length="16" />
+		<item name="客户证件类型" type="byte" length="1" />
+		<item name="客户证件号码" type="ascII" length="20" />
+		<item name="受理渠道" type="hex" length="2" />
+		<item name="出单机构流水号" type="ascII" length="20" />
+		<item name="出单机构代码" type="ascII" length="15" />
+		<item name="受理操作员编号" type="ascII" length="20" />
+		<item name="交易日期时间" type="time" length="8" />
+		<item name="充电端口" type="int" length="1" />
+		<enumitem name="处理状态" length="1">
+			<enumvalue>
+				<enum desc="成功">1</enum>
+				<enum desc="失败">2</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="报文认证码" type="hex" length="8" />
+	</protocol>
+
+	<protocol id="0x6B" name="服务类别认证信息上报应答" direction="st">
+		<item name="报文编号" value="0" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="卡号" value="0" type="ascii" size="16" note="加电卡号" />
+		<item name="流程序号" value="0" type="ascii" size="8" note="长度为8的十六进制数" />
+		<item name="交易日期时间" value="2015-08-13 10:10:01" type="time" size="8"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+		<item name="报文认证码" value="0" type="hex" size="8" note="长度为8的十六进制数" />
+	</protocol>
+
+	<protocol id="0x7B" name="服务类别认证信息上报" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="卡号" type="ascII" length="16" />
+		<item name="设备编码" type="hex" length="8" />
+		<item name="交易日期时间" type="time" length="8" />
+		<item name="报文认证码" type="hex" length="8" />
+	</protocol>
+
+	<!-- 充电枪位置充/放电类型" -->
+	<protocol id="0x6E" name="充/放电服务终止上报应答" direction="st">
+		<item name="报文编号" value="0" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="充电枪位置充/放电类型" type="byte" size="1" value="1"
+			note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号  Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+		<item name="卡号" value="0" type="ascii" size="16" note="长度不能超过16的字符串" />
+		<item name="中心交易流水" value="0" type="ascii" size="15" note="长度不能超过15的字符串" />
+		<item name="交易日期时间" value="2015-08-13 10:10:01" type="time" size="8"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+	</protocol>
+
+	<!-- 充电枪位置充/放电类型" -->
+	<protocol id="0x7E" name="充/放电服务终止上报指令" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电枪位置充/放电类型" type="cdqtype" length="1" />
+		<item name="卡号" type="ascII" length="16" />
+		<item name="中心交易流水号" type="ascII" length="15" />
+		<item name="充电预约编码" type="ascII" length="5" />
+		<item name="充电机编码" type="hex" length="8" />
+		<item name="充电服务时长"  unit="秒"  type="int" length="4" />
+		<item type="time" name="充/放电服务开始日期时间" length="8" />
+		<item type="time" name="充/放电服务结束日期时间" length="8" />
+	</protocol>
+
+	<!-- 11.6增值充电服务管理 -->
+	<protocol id="0xC1" name="智能终端充电预约操作命令" direction="st">
+		<item name="报文编号" value="0" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="本次预约序号" value="20150101122345000001" type="ascii"
+			size="20" note="长度不能超过20的字符串" />
+		<item name="本次预约下达时间" value="2015-01-01 01:01:01" type="time"
+			size="8" note="时间格式为YYYY-MM-DD hh:mm:ss" />
+		<item name="预约开始时间" value="2015-08-08 10:10:10" type="time" size="8"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+		<item name="预约操作" value="0" type="int" size="1" min="1" max="3"
+			note="1：预约确认；2：预约取消；3：预约终止" />
+		<item name="预约时间长度" value="1" type="int" size="2"
+			note="单位：分钟 。范围0-65535的整数" />
+		<item name="预约车牌号" value="京123456" type="carstr" size="8"
+			note="长度不能超过8的车牌号" />
+		<item name="预约卡号" value="0" type="ascii" size="16" note="长度不能超过16的字符串" />
+		<item name="预约模式" value="1" type="int" size="1" min="1" max="2"
+			note="1：协商；2：强制" />
+		<item name="客户姓名" value="0" type="GB" size="20" note="长度不超过10的字符串" />
+	</protocol>
+
+	<protocol id="0xD1" name="智能终端充电预约操作应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="本次预约序号" type="ascII" length="20" />
+		<item type="time" name="本次预约下达时间" length="8" />
+		<item type="time" name="预约开始时间" length="8" />
+		<enumitem name="预约操作" length="1">
+			<enumvalue>
+				<enum desc="预约确认">1</enum>
+				<enum desc="预约取消">2</enum>
+				<enum desc="预约终止">3</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="预约时间长度" unit="分钟" type="int" length="2" />
+		<item name="预约车牌号" type="carstr" length="8" />
+		<item name="预约卡号" type="ascII" length="16" />
+		<enumitem name="预约模式" length="1">
+			<enumvalue>
+				<enum desc="协商">1</enum>
+				<enum desc="强制">2</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="客户姓名" type="GB" length="20" />
+	</protocol>
+
+	<protocol id="0xC2" name="智能终端充电预约查询命令" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+	</protocol>
+
+	<protocol id="0xD2" name="智能终端充电预约查询命令应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="本次预约序号" type="ascII" length="20" />
+		<item name="本次预约下达时间" type="time" length="8" />
+		<item name="预约开始时间" type="time" length="8" />
+		<enumitem name="预约操作" length="1">
+			<enumvalue>
+				<enum desc="预约确认">1</enum>
+				<enum desc="预约取消">2</enum>
+				<enum desc="预约终止">3</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="预约时间长度" unit="分钟" type="int" length="2" />
+		<item name="预约车牌号" type="carstr" length="8" />
+		<item name="预约卡号" type="ascII" length="16" />
+		<enumitem name="预约模式" length="1">
+			<enumvalue>
+				<enum desc="协商">1</enum>
+				<enum desc="强制">2</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="客户姓名" type="GB" length="20" />
+	</protocol>
+
+	<protocol id="0xC3" name="智能终端充电车位数据查询命令" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+	</protocol>
+
+	<protocol id="0xD3" name="充电桩向系统下达充电车位数据查询应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item type="time" name="当前时间" length="8" />
+		<enumitem name="检测模式" length="1">
+			<enumvalue>
+				<enum desc="倒车雷达">1</enum>
+				<enum desc="。。">2</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="检测时间长度" unit="秒" type="int" length="4" />
+		<enumitem name="检测状态" length="1">
+			<enumvalue>
+				<enum desc="空闲">0</enum>
+				<enum desc="占用">1</enum>
+			</enumvalue>
+		</enumitem>
+		<enumitem name="检测参数类型" length="1">
+			<enumvalue>
+				<enum desc="距离">1</enum>
+				<enum desc="。。">2</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="车位遮挡物距离" unit="厘米" type="int" length="4" />
+	</protocol>
+
+	<!-- 11.7第三方平台服务管理 -->
+	<protocol id="0xE3" name="第三方平台用户账号信息上报应答" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+		<item name="第三方平台用户认证信息码" type="hex" size="52" value="0"
+			note="不足补空格，16进制编码" />
+		<item name="第三方平台用户认证信息码预留" type="hex" size="28" value="0"
+			note="不足补空格，16进制编码" />
+		<item name="中心交易流水" value="0" type="ascii" size="15" note="长度不能超过15的字符串" />
+		<item name="交易日期时间" value="2015-08-13 10:10:10" type="time" size="8"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+		<item name="报文认证码" type="hex" size="8"  value="0" note="长度为8的十六进制数" />
+	</protocol>
+
+	<!-- 充电枪位置充/放电类型" -->
+	<protocol id="0xF3" name="第三方平台用户账号信息上报指令" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="第三方平台用户认证信息码" type="hex" length="52" value="0"
+			note="不足补空格，16进制编码" />
+		<item name="第三方平台用户认证信息码预留" type="hex" length="28" value="0"
+			note="不足补空格，16进制编码" />
+		<item name="受理渠道" type="hex" length="2" />
+		<item name="交易日期时间" type="time" length="8" />
+		<item name="预授权收费金额" unit="元" type="ascII" length="12" />
+		<item name="充电枪位置充/放电类型" type="cdqtype" length="1" />
+		<enumitem name="本次充电模式" length="1" type ="hex">
+			<enumvalue>
+				<enum desc="自然充满">20</enum>
+				<enum desc="按时间">30</enum>
+				<enum desc="按电量">40</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="计划充电时长" unit="分钟" type="int" length="4" />
+		<item name="计划充电度数" type="kwhint" length="4" />
+		<item name="报文认证码" type="hex" length="8" />
+	</protocol>
+
+	<protocol id="0xE4" name="第三方平台合法用户认证通过指令" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" />
+		<item name="指令序号" type="int" size="2" value="0" />
+		<item name="第三方平台用户认证信息码" type="hex" size="52" value="0"
+			note="不足补空格，16进制编码" />
+		<item name="第三方平台用户认证信息码预留" type="hex" size="28" value="0"
+			note="不足补空格，16进制编码" />
+		<item name="流程序号" value="0" type="hex" size="8" note="长度为8的十六进制数" />
+		<item name="客户号" value="0" type="GB" size="30"
+			note="客户号格式：AAA，BBB，CCC （AAA表示车辆VIN、BBB 表示车牌号、CCC 表示公司缩写）。长度不能超过30的字符串" />
+		<item name="中心交易流水" value="0" type="ascii" size="15" note="长度不能超过15的字符串" />
+		<item name="交易日期时间" value="2015-08-13 10:10:10" type="time" size="8"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+		<item name="充电端口" value="1" type="int" size="1" note="范围0-255的整数" />
+		<item name="本次充电模式" value="20" type="hex" size="1"
+			note="0x20:自然充满（“计划充电时长”与“计划充电度数”设置=0）；0x30:按时间（具体时长参照“计划充电时长”）；0x40:按电量（具体时长参照“计划充电度数”）。长度为1的十六进制数" />
+		<item name="计划充电时长" value="1" type="int" size="4" note="范围0-255的整数" />
+		<item name="计划充电度数" value="0" type="kwhint" size="4"
+			note="范围0-4294967295的整数" />
+		<item name="报文认证码" value="0" type="hex" size="8" note="长度为8的十六进制数" />
+	</protocol>
+
+	<protocol id="0xF4" name="第三方平台合法用户认证通过指令应答" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="第三方平台用户认证信息码" type="hex" length="52" value="0"
+			note="不足补空格，16进制编码" />
+		<item name="第三方平台用户认证信息码预留" type="hex" length="28" value="0"
+			note="不足补空格，16进制编码" />
+		<item name="受理渠道" type="hex" length="2" />
+		<item name="交易日期时间" type="time" length="8" />
+		<item name="充电端口" type="int" length="1" />
+		<enumitem name="处理状态" length="1">
+			<enumvalue>
+				<enum desc="成功">1</enum>
+				<enum desc="失败">2</enum>
+				<enum desc="未开启充电，本次充电结束">3</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="报文认证码" type="hex" length="8" />
+	</protocol>
+
+	<!-- 充电枪位置充/放电类型" -->
+	<protocol id="0xE5" name="第三方平台合法用户消费信息上报应答" direction="st">
+		<item name="报文编号" value="0" type="int" size="2" />
+		<item name="指令序号" value="0" type="int" size="2" />
+		<item name="充电设备编码" value="0" type="hex" size="8" note="长度不能超过8的字符串" />
+		<item name="充电枪位置充/放电类型" value="1" type="byte" size="1"
+			note="1=直流；2=交流 Bit6-Bit7 预留 Bit5-Bit2 为充电枪枪号  Bit1-bit0 为充/放电类型 01=直流充电 10=交流充电 11=放电" />
+		<item name="中心交易流水" value="0" type="ascii" size="15" note="长度不能超过15的字符串" />
+		<item name="本地流水号" value="0" type="ascii" size="8"
+			note="首位有效数字前补0
+发送方为消费交易分配的流水号" />
+		<item name="时间戳" value="0" type="time" size="8"
+			note="时间格式为YYYY-MM-DD hh:mm:ss" />
+	</protocol>
+
+	<!-- 充电枪位置充/放电类型" -->
+	<protocol id="0xF5" name="第三方平台用户消费消息信息上报指令" direction="ts">
+		<item name="报文编号" type="int" length="2" />
+		<item name="指令序号" type="int" length="2" />
+		<item name="充电设备编码" type="hex" length="8" />
+	<item name="充电枪位置充/放电类型" type="cdqtype" length="1" />
+		<item name="中心交易流水号" type="ascII" length="15" />
+		<item name="本地流水号" type="ascII" length="8" />
+		<enumitem name="交易性质" length="1" type="hex">
+			<enumvalue>
+				<enum desc="纯扣款交易">00</enum>
+				<enum desc="进闸登记交易">01</enum>
+				<enum desc="出闸扣款交易">02</enum>
+				<enum desc="纯积分交易">03</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="POS操作员编号" type="ascII" length="16" />
+		<item name="POS机载体编号" type="ascII" length="6" />
+		<enumitem name="交易类型" length="2" type="ascii">
+			<enumvalue>
+				<enum desc="正常交易">88</enum>
+				<enum desc="锁卡更改卡状态交易">99</enum>
+				<enum desc="锁卡清空卡上钱包交易">98</enum>
+				<enum desc="换乘优惠交易">87</enum>
+				<enum desc="低峰时段优惠交易">84</enum>
+				<enum desc="节假日优惠交易">83</enum>
+				<enum desc="累计次数优惠">6F</enum>
+				<enum desc="换乘优惠交易+累计次数优惠交易">6E</enum>
+				<enum desc="卡型优惠交易+累计次数优惠交易（保留）">6D</enum>
+				<enum desc="低峰时段优惠交易+累计次数优惠交易">6C</enum>
+				<enum desc="节假日优惠交易+累计次数优惠">6B</enum>
+				<enum desc="计时计次卡交易">48</enum>
+				<enum desc="计时计费卡交易">49</enum>
+				<enum desc="停车场优惠">81</enum>
+				<enum desc="旅游卡公共事业缴费交易">91</enum>
+				<enum desc="旅游卡退卡消费交易">92</enum>
+			</enumvalue>
+		</enumitem>
+		<item name="POS机流水号" type="ascII" length="12" />
+		<item name="卡面号" type="ascII" length="12" />
+		<item name="卡类型" type="ascII" length="2" />
+		<item name="消费前卡金额" type="ascII" length="8" />
+		<item name="交易金额" type="ascII" length="8" />
+		<item name="交易发生日期" type="date" length="4" />
+		<item name="交易发生时间" type="timeStamp" length="3" />
+		<item name="交易计数器" type="ascII" length="6" />
+		<item name="POS机号" type="ascII" length="8" />
+		<item name="交易认证码" type="ascII" length="8" note="字母为大写" />
+		<item name="卡内版本号" type="version" length="2" />
+		<item name="行业特有数据" type="ascII" length="80" />
+	</protocol>
+
+	<!-- add by xqx end -->
+	
+
+</protocolset>

@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: icp-pre-gateway
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  redis:
+    database: 10
+    host: 10.3.10.167
+    port: 6488
+    password: Cp1t0I67
+    timeout: 3000
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://139.199.111.237:3306/shineyoo_charging_pile?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: pile
+    password: shineyoopile
+    tomcat:
+      max-wait: 10000
+      max-active: 50
+      test-on-borrow: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+    default-property-inclusion: non-null
+    deserialization:
+      fail-on-unknown-properties: false
+  cloud:
+    stream:
+      bindings:
+        reInput: 
+          destination: icp-resend
+        reOutput: 
+          destination: icp-resend
+
+   
+mybatis:
+  config-location: classpath:/mybatis-config.xml
+
+server: 
+  port: 25000 
+
+management:
+  port: 25100
+  security:
+    enabled: false
+  context-path: /mgmt
+  
+
+logging:
+  level:
+    root: WARN
+    com.cpit.icp: INFO
+  file: ${spring.application.name}.log    
+
+#via gateway to access collect mcs  
+icp-url: http://10.3.10.166:26010/collect
+
+  

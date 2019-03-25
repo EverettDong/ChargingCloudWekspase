@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.icp.collect.dao.MonOverallStateDao">
+
+	<resultMap type="MonOverallStateDto" id="MonOverallStateDtoMap">
+		
+		<result property="deviceNo" column="device_no" />
+		
+		<result property="chargemodNum" column="chargemod_num" />
+		
+		<result property="gunAmount" column="gun_amount" />
+		<result property="inDate" column="in_date" />
+
+	</resultMap>
+		<insert id="addDto" parameterType="MonOverallStateDto">
+	insert into mon_overall_state (device_no,chargemod_num,gun_amount,in_date) 
+	values
+	(#{deviceNo},#{chargemodNum},#{gunAmount},#{inDate})
+	
+	</insert>
+	<update id="upDto" parameterType="MonOverallStateDto">
+	update mon_overall_state
+	 <set>
+            <if test="chargemodNum != null">
+                chargemod_num = #{chargemodNum,jdbcType=VARCHAR},
+            </if>
+              <if test="gunAmount != null">
+                gun_amount = #{gunAmount,jdbcType=VARCHAR},
+            </if>
+              <if test="inDate != null">
+                in_date = #{inDate,jdbcType=VARCHAR},
+            </if>
+            </set>
+             where device_no = #{deviceNo,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="getByDeviceNo" parameterType="String" resultMap="MonOverallStateDtoMap">
+	select * from mon_overall_state m
+	<trim prefix="where" suffixOverrides="and">
+		      
+			
+			<if test="deviceNo !=null and deviceNo != ''">
+				m.device_no = #{deviceNo} 
+			</if>
+			</trim>
+	</select>
+	
+
+</mapper>

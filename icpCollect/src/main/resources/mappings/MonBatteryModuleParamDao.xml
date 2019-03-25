@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.icp.collect.dao.MonBatteryModuleParamDao">
+
+	<resultMap type="MonBatteryModuleParamDto" id="MonBatteryModuleParamDtoMap">
+		<result property="deviceNo" column="device_no" />
+		<result property="operatorId" column="operator_id" />
+		<result property="serialNo" column="serial_no" />
+		<result property="vin" column="vin" />
+		<result property="bmsCode" column="bms_code" />
+		<result property="rechargeType" column="recharge_type" />
+		<result property="position" column="position" />
+		<result property="battBoxCode" column="battBox_code" />
+		<result property="inDate" column="in_date" />
+	</resultMap>
+		
+	<insert id="addDto" parameterType="MonOverallStateDto">
+	insert into mon_battery_module_param 
+	(device_no,operator_id,serial_no,vin,bms_code,recharge_type,position,battBox_code
+	in_date)
+	values
+	(#{deviceNo},#{operatorId},#{serialNo},
+	#{vin},#{bmsCode},#{rechargeType},#{position},#{battBoxCode}
+	#{inDate}
+	)
+	</insert>
+	
+	<update id="updateDto" parameterType="MonOverallStateDto">
+	update mon_battery_module_param 
+	<trim prefix="set" suffixOverrides=",">
+			<if test=" operatorId!=null and  operatorId!= ''">  operator_id= #{operatorId},</if>
+			<if test="  serialNo!=null and   serialNo!= ''"> serial_no= #{serialNo},</if>
+	
+			<if test=" vin!=null and  vin!= ''"> vin= #{vin},</if>
+				<if test=" bmsCode!=null and  bmsCode!= ''">  bms_code= #{bmsCode},</if>
+			<if test="  rechargeType!=null and   rechargeType!= ''"> recharge_type= #{rechargeType},</if>
+					<if test="  battBoxCode!=null and   battBoxCode!= ''"> battBox_code= #{battBoxCode},</if>	
+			in_date = sysdate()
+		</trim>
+
+		where device_no=#{deviceNo} and postion=#{position}
+	</update>
+	
+	
+	
+	<select id="getByDeviceAndPos" parameterType="String" resultMap="MonBatteryModuleParamDtoMap">
+	select * from mon_battery_module_param 
+		<trim prefix="where" suffixOverrides="and">
+		      
+			<if test="deviceNo !=null and deviceNo != ''">
+				device_no = #{deviceNo} and
+			</if>
+			<if test="position !=null and position != ''">
+				position = #{position} 
+			</if>
+			</trim>
+	</select>
+	</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 起始域       长度域      版本域     序列号域    命令代码    数据域       校验和域
+     2个字节    1个字节   1个字节     1个字节     1个字节     N个字节     1个字节 -->
+<!-- domain_begin -->
+<xml>
+	<domain name="begin" length="2">0xFA 0xF5</domain>
+	<domain name="length" length="1" />
+	<domain name="version" length="1">0x80</domain>
+	<!--报文的流水号 -->
+	<domain name="serial" length="1" />
+	<!-- 命令代码 即消息类型，代表不同功能要求 -->
+	<domain name="command" length="1" />
+	<!-- 数据域：具体的信息数据区域，不同的命令代码对应的内容不同 -->
+	<domain name="data" length="0" />
+	<!-- 校验和域：采用累计和计算校验值，计算范围包含从命令代码和数据域 -->
+	<domain name="verify" length="1" />
+</xml>

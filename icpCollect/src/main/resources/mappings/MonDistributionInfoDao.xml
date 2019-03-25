@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.icp.collect.dao.MonDistributionInfoDao">
+
+	<resultMap type="MonDistributionInfoDto" id="MonDistributionInfoDtoMap">
+		<result property="id" column="id" />
+		<result property="deviceNo" column="device_no" />
+		<result property="operatorId" column="operator_id" />
+		<result property="serialNo" column="serial_no" />
+		
+		<result property="moduleAmount" column="module_amount" />
+		<result property="modPosition" column="mod_position" />
+		<result property="meterId" column="meter_id" />
+		<result property="kwh" column="kwh" />
+		<result property="inputAcPow" column="input_ac_pow" />
+		<result property="inputRePow" column="input_re_pow" />
+		<result property="inputVo" column="input_vo" />
+		<result property="inputCur" column="input_cur" />
+		<result property="powerFactor" column="power_factor" />
+		<result property="harmonicContent" column="harmonic_content" />
+		<result property="powerFault" column="power_fault" />
+		<result property="distributionFault" column="distribution_fault" />
+		<result property="disSwitch" column="switch" />
+		<result property="insurance" column="insurance" />
+		<result property="inDate" column="in_date" />
+
+	</resultMap>
+	
+	
+	</mapper>

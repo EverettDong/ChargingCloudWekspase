@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: icp-collect
+    # rabitmq will used in future
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  redis:
+    database: ${redis.database.collect}
+    host: ${redis.host} #read from config-server
+    port: ${redis.port}
+    password: ${redis.password}
+    timeout: ${redis.timeout}
+    pool:
+      max-active: 50
+      max-wait: 2000
+      max-idle: 25
+  datasource:
+    driver-class-name: ${collect.ds.driver}
+    url: ${collect.ds.url}
+    username: ${collect.ds.username}
+    password: ${collect.ds.password}
+    tomcat:
+      max-wait: 10000
+      max-active: 50
+      test-on-borrow: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+    default-property-inclusion: non-null
+    deserialization:
+      fail-on-unknown-properties: false
+    
+mybatis:
+  config-location: classpath:/mybatis-config.xml
+
+server:
+  port: 26090  
+
+management:
+  port: 27090  
+  security:
+    enabled: false
+  context-path: /mgmt
+  
+
+logging:
+  level:
+    root: WARN
+    com.cpit.icp: ${log.icp.level}
+  file: ${spring.application.name}.log     
+
+
+  

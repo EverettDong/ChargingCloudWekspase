@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: icp-register-server
+
+server:
+  port: 26000
+  
+management:
+  port: 27000
+  security:
+    enabled: false
+  context-path: /mgmt
+  address: localhost
+ 
+   
+  
+eureka:
+  instance:
+    hostname: peer1
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 5000
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://peer1:26000/eureka/    
+  
+
+logging:
+  level:
+    root: WARN

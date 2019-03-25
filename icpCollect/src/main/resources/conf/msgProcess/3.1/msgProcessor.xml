@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<msgProcessors>
+	<msgProcessor id ="registerMsgProcessImp" code="0x10" 
+		name="com.cpit.icp.collect.msgProcess.RegisterMsgProImp">
+	</msgProcessor>
+<!--  
+	<msgProcessor id ="HeartMsgProcessImp" code="0x58"
+		name="com.cpit.testplatform.modules.sockComm.msgProcess.HeartMsgProImp" > 
+	</msgProcessor>
+-->
+	<msgProcessor id ="RequestMsgProcessImp" code="0x70,0x71,0x72,0x75,0x78,0x74"
+		name="com.cpit.icp.collect.msgProcess.RequestMsgProImp"> 
+		<sendResponseData  send="0x60" response="0x70" />
+		<sendResponseData  send="0x61" response="0x71"/>
+		<sendResponseData  send="0x62" response="0x72"/>
+		<sendResponseData  send="0x65" response="0x75"/>
+		<sendResponseData  send="0x63" response="0x78" store="true"/>
+		<sendResponseData  send="0x64" response="0x74"/>
+	</msgProcessor>
+
+	<msgProcessor id ="ReportMsgProcessImp" code="0x51,0x52,0x59,0x50,0x15,0x17,0x18,0xF0,0x31,0x32,0x39,0x34,0x35,0x36,0x3B,0xF1,0xF2,0xD1,0xD2,0xD3,0x56,0x53,0xF0,0x7A,0x93,0x96,0x97,0x98,0x1A,0x11,0xB3"
+		name="com.cpit.icp.collect.msgProcess.ReportMsgProImp"> 
+	   		<sendResponseData  send="0x41" response="0x51"/>
+			<sendResponseData  send="0x42" response="0x52"/>
+			<sendResponseData  send="0x49" response="0x59"/>
+			<sendResponseData  send="0x40" response="0x50"/>
+			<sendResponseData  send="0x05" response="0x15"/>
+			<sendResponseData  send="0x07" response="0x17"/>
+			<sendResponseData  send="0x08" response="0x18" />
+			<sendResponseData  send="0xE0" response="0xF0"  reply="true"/>
+			<sendResponseData  send="0x21" response="0x31"/>
+			<sendResponseData  send="0x22" response="0x32"/>
+			<sendResponseData  send="0x23" response="0x39" store="true" />
+			<sendResponseData  send="0x24" response="0x34" store="true"/>
+			<sendResponseData  send="0x25" response="0x35" store="true" />
+			<sendResponseData  send="0x26" response="0x36"/>
+			<sendResponseData  send="0x2B" response="0x3B"/>
+			<sendResponseData  send="0xE1" response="0xF1"/>
+			<sendResponseData  send="0xE2" response="0xF2"/>
+			<sendResponseData  send="0xC1" response="0xD1"/>
+			<sendResponseData  send="0xC2" response="0xD2"/>
+			<sendResponseData  send="0xC3" response="0xD3"/>
+			<sendResponseData  send="0x46" response="0x56"/>
+			<sendResponseData  send="0x43" response="0x53"/>
+			<sendResponseData  send="0xE0" response="0xF0"/>
+			<sendResponseData  send="0x6C" response="0x7A" reply ="true"/>
+			<sendResponseData  send="0x80" response="0x93"/>
+			<sendResponseData  send="0x86" response="0x96"/>
+			<sendResponseData  send="0x87" response="0x97"/>
+			<sendResponseData  send="0x88" response="0x98"/>
+			<sendResponseData  send="0x0A" response="0x1A"/>
+			<sendResponseData  send="0xA0" response="0xB0"/>
+			<sendResponseData  send="0xA1" response="0xB1"/>
+			<sendResponseData  send="0xA2" response="0xB2"/>
+			<sendResponseData  send="0xA3" response="0xB3"/>
+			
+			<sendResponseData send="0xFF" response="0x11"/>
+			
+	</msgProcessor>
+
+</msgProcessors>
+

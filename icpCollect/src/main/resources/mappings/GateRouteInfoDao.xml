@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.icp.collect.dao.GateRouteInfoDao">
+
+	<resultMap type="GateRouteInfoDto" id="GateRouteInfoDtoMap">
+
+		<result property="deviceNo" column="device_no" />
+		<result property="preGateIp" column="pre_gate_ip" />
+		<result property="preGatePort" column="pre_gate_port" />
+		<result property="changeTime" column="change_time" />
+		<result property="deviceVersion" column="device_version" />
+
+
+	</resultMap>
+
+
+	<select id="getByDeviceNo" parameterType="String" resultMap="GateRouteInfoDtoMap">
+		select * from mon_gate_route_info
+		<where>
+			<if test="deviceNo != '' and deviceNo != null">
+				device_no = #{deviceNo}
+			</if>
+		</where>
+	</select>
+
+	<update id="updateDto" parameterType="GateRouteInfoDto">
+		update mon_gate_route_info
+		<trim prefix="set" suffixOverrides=",">
+			<if test="preGateIp !=null and preGateIp != ''">pre_gate_ip = #{preGateIp},</if>
+			<if test="preGatePort !=null and preGatePort != ''">pre_gate_port = #{preGatePort},</if>
+			<if test="deviceVersion !=null and deviceVersion != ''">device_version = #{deviceVersion},</if>
+			change_time = sysdate()
+		</trim>
+
+		where device_no=#{deviceNo}
+	</update>
+	
+	<delete id="delDto" parameterType="GateRouteInfoDto">
+	delete from mon_gate_route_info
+	<where>
+			<if test="deviceNo != '' and deviceNo != null">
+				device_no = #{deviceNo}
+			</if>
+		</where>
+	</delete>
+	
+	<insert id="addDto" parameterType="GateRouteInfoDto">
+	insert into mon_gate_route_info(device_no,pre_gate_ip,pre_gate_port,change_time,device_version)
+	values
+	(#{deviceNo},#{preGateIp},#{preGatePort},sysdate(),#{deviceVersion})
+	</insert>
+
+</mapper>

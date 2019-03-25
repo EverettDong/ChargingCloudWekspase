@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.icp.collect.dao.MonRechargingSourceDao">
+
+	<resultMap type="MonRechargingSourceDto" id="MonRechargingSourceDtoMap">
+
+		<result property="deviceNo" column="device_no" />
+		<result property="chargeSource" column="charge_source" />
+		<result property="changeTime" column="change_time" />
+	
+
+
+	</resultMap>
+	
+	
+	<insert id="addDto" parameterType ="MonRechargingSourceDto">
+	insert into mon_recharging_source(device_no,charge_source,change_time)
+	values 
+	(#{deviceNo},#{chargeSource},#{changeTime})
+	</insert>
+	
+	<update id="updateDto"  parameterType ="MonRechargingSourceDto">
+	update mon_recharging_source
+		<trim prefix="set" suffixOverrides=",">
+			<if test="chargeSource !=null and chargeSource != ''">charge_source = #{chargeSource},</if>
+			
+			change_time = sysdate()
+		</trim>
+
+		where device_no=#{deviceNo}
+	</update>
+	
+		<select id="getByDeviceno" parameterType="String" resultMap="MonRechargingSourceDtoMap">
+		select * from mon_recharging_source
+		<where>
+			<if test="deviceNo != '' and deviceNo != null">
+				device_no = #{deviceNo}
+			</if>
+		</where>
+	</select>
+	</mapper>

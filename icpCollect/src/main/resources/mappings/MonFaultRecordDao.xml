@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.icp.collect.dao.MonFaultRecordDao">
+<resultMap type="MonFaultRecordDto" id="MonFaultRecordDtoMap">
+		
+		<result property="deviceNo" column="device_no" />
+		<result property="deviceVersion" column="device_version" />
+		<result property="faultDef" column="fault_def" />
+		<result property="faultLevel" column="fault_level" />
+		<result property="faultSrcMsgCode" column="faultSrc_msgCode" />
+		<result property="faultData" column="fault_data" />
+		<result property="parsedFaultData" column="parsed_fault_data" />
+		<result property="inDate" column="in_date" />
+	
+
+	</resultMap>
+	
+	
+	<insert id="addDto" parameterType="MonFaultRecordDto" >
+	insert into mon_fault_record(device_no,device_version,fault_def,fault_level,faultSrc_msgCode,fault_data,parsed_fault_data,in_date)
+	values
+	(#{deviceNo},#{deviceVersion},#{faultDef},#{faultLevel},#{faultSrcMsgCode},#{faultData},#{parsedFaultData},#{inDate})
+	</insert>
+	
+	<select id="list" parameterType ="MonFaultRecordDto" resultMap="MonFaultRecordDtoMap">
+	select * from mon_fault_record 
+	
+		<where>
+			<if test="deviceNo != '' and deviceNo != null">
+				device_no = #{deviceNo}
+			</if>
+			<if test="faultDef != '' and faultDef != null">
+				and fault_def = #{faultDef}
+			</if>
+			<if test="deviceNo != '' and deviceNo != null">
+				and fault_level = #{faultLevel}
+			</if>
+		</where>
+	</select>
+</mapper>

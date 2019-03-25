@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.icp.collect.dao.MonRechargingInfoDao">
+
+    <resultMap type="MonRechargingInfoDto" id="MonRechargingInfoDtoMap">
+        <result property="deviceNo" column="device_no"/>
+        <result property="operatorId" column="operator_id"/>
+        <result property="serialNo" column="serial_no"/>
+        <result property="gunAmount" column="gun_amount"/>
+        <result property="position" column="position"/>
+        <result property="rechargeType" column="recharge_type"/>
+        <result property="kwh" column="kwh"/>
+        <result property="ah" column="ah"/>
+        <result property="rechargeTime" column="recharge_time"/>
+        <result property="startSoc" column="start_soc"/>
+        <result property="currentSoc" column="current_soc"/>
+        <result property="currentKwh" column="current_kwh"/>
+        <result property="inDate" column="in_date"/>
+    </resultMap>
+
+    <insert id="addDto" parameterType="MonRechargingInfoDto">
+	insert into mon_recharging_info (device_no,operator_id,serial_no,gun_amount,position,
+    recharge_type,kwh,ah,recharge_time,start_soc,current_soc,current_kwh,in_date)
+    values
+    (#{deviceNo},#{operatorId},#{serialNo},#{gunAmount},#{position},#{rechargeType},#{kwh},
+    #{ah},#{rechargeTime},#{startSoc},#{currentSoc},#{currentKwh},#{inDate})
+
+</insert>
+
+    <select id="getByDeviceNoAP" parameterType="String" resultMap="MonRechargingInfoDtoMap">
+        select * from mon_recharging_info m
+        <trim prefix="where" suffixOverrides="and">
+
+            <if test="deviceNo !=null and deviceNo != ''">
+                m.device_no = #{deviceNo} and
+            </if>
+            <if test="position !=null and position != ''">
+                m.position = #{position} and
+            </if>
+            <if test="inDate !=null and inDate != ''">
+                m.in_date = #{inDate} &lt;= now()
+            </if>
+            order by in_date DESC
+        </trim>
+    </select>
+
+    <update id="updateDto" parameterType="MonRechargingInfoDto">
+        update mon_recharging_info
+        <set>
+            <if test="deviceNo != null">
+                device_no = #{deviceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorId != null">
+                operator_id = #{operatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="serialNo != null">
+                serial_no = #{serialNo,jdbcType=VARCHAR},
+            </if>
+            <if test="gunAmount != null">
+                gun_amount = #{gunAmount,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                position = #{position,jdbcType=VARCHAR},
+            </if>
+            <if test="rechargeType != null">
+                recharge_type = #{rechargeType,jdbcType=VARCHAR},
+            </if>
+            <if test="kwh != null">
+                kwh = #{kwh,jdbcType=VARCHAR},
+            </if>
+            <if test="ah != null">
+                ah = #{ah,jdbcType=VARCHAR},
+            </if>
+            <if test="rechargeTime != null">
+                recharge_time = #{rechargeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="startSoc != null">
+                start_soc = #{startSoc,jdbcType=VARCHAR},
+            </if>
+            <if test="currentSoc != null">
+                current_soc = #{currentSoc,jdbcType=VARCHAR},
+            </if>
+            <if test="currentKwh != null">
+                current_kwh = #{currentKwh,jdbcType=VARCHAR},
+            </if>
+            <if test="inDate != null">
+                in_date = #{inDate,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where device_no = #{deviceNo,jdbcType=VARCHAR}
+        and position = #{position,jdbcType=VARCHAR}
+        and in_date = #{inDate,jdbcType=VARCHAR}
+    </update>
+    <select id="getOrderByInDate" resultType="com.cpit.icp.dto.collect.MonRechargingInfoDto">
+        select * from mon_recharging_info m
+        <trim prefix="where" suffixOverrides="and">
+
+            <if test="deviceNo !=null and deviceNo != ''">
+                m.device_no = #{deviceNo} and
+            </if>
+            <if test="position !=null and position != ''">
+                m.position = #{position} and
+            </if>
+            order by in_date DESC
+        </trim>
+    </select>
+
+
+</mapper>

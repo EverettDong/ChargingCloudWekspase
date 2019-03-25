@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocolset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+
+	
+	
+	
+	<protocol  id="0x6E" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" src="1" srcPos="0" srcObj="null" />
+		<item name="指令序号" type="int" size="2" value="0" src="7" srcPos="2" srcObj="null"/>
+		<item name="充电枪位置充/放电类型" type="byte" size="1" value="0" src="1" srcPos="4" srcObj="null"/>
+		<item name="卡号" type="ascii" size="16" value="0" src="1" srcPos="5" srcObj="null"/>
+		<item name="中心交易流水" type="ascii" size="15" value="0" src="1" srcPos="21" srcObj="null"/>
+		<item name="交易日期时间" type="time" size="8"  value="0" src="5" srcPos="53" srcObj="null"/>
+</protocol>
+		
+	<protocol  id="0x2D" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" src="1" srcPos="0" srcObj="null" />
+		<item name="指令序号" type="int" size="2" value="0" src="7" srcPos="2" srcObj="null"/>
+		<item name="充电设备编码" type="ascii" size="16" value="0" src="4" srcPos="0" srcObj="null"/>
+		<item name="故障发生时间" type="timeStamp" size="3" value="0" src="1" srcPos="4" srcObj="null"/>
+		<item name="故障确认时间" type="time" size="8" value="0" src="5" srcPos="21" srcObj="null"/>
+	</protocol>	
+			
+	<protocol  id="0xE3" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" src="1" srcPos="0" srcObj="null" />
+		<item name="指令序号" type="int" size="2" value="0" src="7" srcPos="2" srcObj="null"/>
+		<item name="第三方平台用户认证信息码" type="hex" size="52" value="0" src="1" srcPos="4" srcObj="null"/>
+		<item name="第三方平台用户认证信息码" type="hex" size="28" value="0" src="1" srcPos="56" srcObj="null"/>
+		<item name="中心交易流水号" type="ascii" size="15" value="0102030405060708090a0b0c0d0e0f" src="6" srcPos="0" srcObj="null"/>
+		<item name="交易日期时间" type="time" size="8" value="0" src="1" srcPos="86" srcObj="null"/>
+		<item name="报文认证码" type="hex" size="8" value="0" src="1" srcPos="116" srcObj="null"/>
+	
+	</protocol>	
+	
+	<protocol  id="0xE5" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" src="1" srcPos="0" srcObj="null" />
+		<item name="指令序号" type="int" size="2" value="0" src="7" srcPos="2" srcObj="null"/>
+		<item name="充电设备编码" type="ascii" size="8" value="0" src="1" srcPos="4" srcObj="null"/>
+		<item name="充电枪位置充/放电类型" type="byte" size="1" value="0" src="1" srcPos="12" srcObj="null"/>
+		<item name="中心交易流水号" type="ascii" size="15" value="0" src="1" srcPos="13" srcObj="null"/>
+		<item name="本地流水号" type="ascii" size="8" value="0" src="1" srcPos="28" srcObj="null"/>
+		<item name="时间戳" type="time" size="8" value="0" src="5" srcPos="103" srcObj="null"/>
+	
+	</protocol>	
+	
+	<protocol  id="0x44" direction="st">
+		<item name="报文编号" type="int" size="2" value="0" src="1" srcPos="0" srcObj="null" />
+		<item name="指令序号" type="int" size="2" value="0" src="7" srcPos="2" srcObj="null"/>
+		<item name="标准始终时间" type="time" size="8" value="0" src="5" srcPos="4" srcObj="null"/>
+	
+	</protocol>	
+	
+</protocolset>
